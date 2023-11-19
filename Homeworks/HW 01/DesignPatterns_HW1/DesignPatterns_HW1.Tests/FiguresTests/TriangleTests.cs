@@ -38,7 +38,7 @@ namespace DesignPatterns_HW1.Tests.FigureTests
         [TestCase(B, A, C)]
         [TestCase(C, A, B)]
         [TestCase(C, B, A)]
-        public void PermiterShouldCalculatePerimeterCorrectly(double a, double b, double c)
+        public void PerimeterShouldCalculatePerimeterCorrectly(double a, double b, double c)
         {
             // arrange
             double expected = a + b + c;

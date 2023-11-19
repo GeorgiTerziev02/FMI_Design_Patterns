@@ -80,6 +80,26 @@ namespace DesignPatterns_HW1.Tests.FactoriesTests
         }
 
         [Test]
+        public void CreateShouldCreateTriangleSuccessfullyEvenWithRandomReturnsNegatives()
+        {
+            // arrange
+            var index = 0;
+            var negativeSides = new double[] { -SIDES[0], -SIDES[1], -SIDES[2] };
+            var expectedFigure = new Triangle(SIDES[0] * 100, SIDES[1] * 100, SIDES[2] * 100);
+            var randomGeneratorMock = new Mock<IRandomGenerator>();
+            randomGeneratorMock.Setup(x => x.NextDouble()).Returns(() => negativeSides[index++]);
+            randomGeneratorMock.Setup(x => x.Next(0, 3)).Returns(0);
+
+            var factory = new RandomFigureFactory(randomGeneratorMock.Object);
+
+            // act
+            var figure = factory.Create();
+
+            // assert
+            Assert.That(figure, Is.EqualTo(expectedFigure));
+        }
+
+        [Test]
         public void CreateShouldThrowIfGeneratorReturnsInvalid()
         {
             // arrange
@@ -92,6 +112,42 @@ namespace DesignPatterns_HW1.Tests.FactoriesTests
             // act
             // assert
             Assert.That(() => factory.Create(), Throws.Exception);
+        }
+
+        [Test]
+        [TestCase(0, 0, 0)]
+        [TestCase(2, 2, 10)]
+        [TestCase(2, 10, 2)]
+        [TestCase(10, 2, 2)]
+        public void CreateTriangleShouldTryAgainIfTheGeneratedTriangleStringIsInvalid(double invalidA, double invalidB, double invalidC)
+        {
+            // arrange
+            var index = 0;
+            var invalidAndValidSides = new double[] { invalidA, invalidB, invalidC, SIDES[0], SIDES[1], SIDES[2] };
+            var expectedFigure = new Triangle(SIDES[0] * 100, SIDES[1] * 100, SIDES[2] * 100);
+            var randomGeneratorMock = new Mock<IRandomGenerator>();
+            randomGeneratorMock.Setup(x => x.NextDouble()).Returns(() => invalidAndValidSides[index++]);
+            randomGeneratorMock.Setup(x => x.Next(0, 3)).Returns(0);
+
+            var factory = new RandomFigureFactory(randomGeneratorMock.Object);
+
+            // act
+            var figure = factory.Create();
+
+            // assert
+            Assert.That(figure, Is.EqualTo(expectedFigure));
+        }
+
+        [Test]
+        public void DisposeShouldNotThrow()
+        {
+            // arrange
+            var randomGeneratorMock = new Mock<IRandomGenerator>();
+            var factory = new RandomFigureFactory(randomGeneratorMock.Object);
+
+            // act
+            // assert
+            Assert.DoesNotThrow(() => factory.Dispose());
         }
     }
 }

@@ -26,23 +26,24 @@ namespace DesignPatterns_HW1.Factories
 
         private string GenerateRandomFigureType()
         {
-            return _figureTypes[_randomGenerator.Next(0, _figureTypes.Length)];
+            return _figureTypes[Math.Abs(_randomGenerator.Next(0, _figureTypes.Length))];
         }
 
         private double GenerateRandomDouble()
         {
-            return _randomGenerator.NextDouble() * MAX_DOUBLE_NUMBER;
+            return Math.Abs(_randomGenerator.NextDouble()) * MAX_DOUBLE_NUMBER;
         }
 
         public string GenerateValidTriangleString()
         {
-            double a = 0, b = 0, c = 0;
-            while (!Helper.IsValidTriangle(a, b, c))
+            double a, b, c;
+            do
             {
                 a = GenerateRandomDouble();
                 b = GenerateRandomDouble();
                 c = GenerateRandomDouble();
-            }
+            } while (a <= 0 || b <= 0 || c <= 0 || !Helper.IsValidTriangleInequality(a, b, c));
+
             return $"{Triangle.NAME} {a} {b} {c}";
         }
 
@@ -62,5 +63,6 @@ namespace DesignPatterns_HW1.Factories
                     throw new ArgumentException(ErrorMessages.INVALID_FIGURE_TYPE);
             }
         }
+
     }
 }

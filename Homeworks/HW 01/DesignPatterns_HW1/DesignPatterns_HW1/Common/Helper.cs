@@ -2,7 +2,7 @@
 {
     public static class Helper
     {
-        public static void DoubleParseTokens(string[] tokens, int expectedLength, out double[] result)
+        public static void DoubleParseArgumentTokens(string[] tokens, int expectedLength, out double[] result)
         {
             if (tokens.Length != expectedLength)
             {
@@ -27,7 +27,7 @@
             }
         }
 
-        public static bool IsValidTriangle(double a, double b, double c)
+        public static bool IsValidTriangleInequality(double a, double b, double c)
         {
             return a + b > c && a + c > b && b + c > a;
         }

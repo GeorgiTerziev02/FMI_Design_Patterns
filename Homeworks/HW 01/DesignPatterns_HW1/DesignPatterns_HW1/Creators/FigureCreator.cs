@@ -17,19 +17,19 @@ namespace DesignPatterns_HW1.Creators
             {
                 case Triangle.NAME:
                     {
-                        Helper.DoubleParseTokens(tokens, 4, out double[] sides);
+                        Helper.DoubleParseArgumentTokens(tokens, 4, out double[] sides);
 
                         return new Triangle(sides[0], sides[1], sides[2]);
                     }
                 case Rectangle.NAME:
                     {
-                        Helper.DoubleParseTokens(tokens, 3, out double[] sides);
+                        Helper.DoubleParseArgumentTokens(tokens, 3, out double[] sides);
 
                         return new Rectangle(sides[0], sides[1]);
                     }
                 case Circle.NAME:
                     {
-                        Helper.DoubleParseTokens(tokens, 2, out double[] sides);
+                        Helper.DoubleParseArgumentTokens(tokens, 2, out double[] sides);
 
                         return new Circle(sides[0]);
                     }

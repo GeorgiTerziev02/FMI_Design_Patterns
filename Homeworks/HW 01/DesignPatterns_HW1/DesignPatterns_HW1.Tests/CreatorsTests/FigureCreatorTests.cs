@@ -20,11 +20,11 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
             var expectedString = expectedFigure.ToString();
 
             // act
-            var figure = FigureCreator.CreateFigure(expectedString);
-            var actualString = figure.ToString();
+            var actualFigure = FigureCreator.CreateFigure(expectedString);
+            var actualString = actualFigure.ToString();
 
             // assert
-            Assert.That(figure, Is.EqualTo(expectedFigure));
+            Assert.That(actualFigure, Is.EqualTo(expectedFigure));
             Assert.That(actualString, Is.EqualTo(expectedString));
         }
 
@@ -36,11 +36,11 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
             var expectedString = expectedFigure.ToString();
 
             // act
-            var figure = FigureCreator.CreateFigure(expectedString);
-            var actualString = figure.ToString();
+            var actualFigure = FigureCreator.CreateFigure(expectedString);
+            var actualString = actualFigure.ToString();
 
             // assert
-            Assert.That(figure, Is.EqualTo(expectedFigure));
+            Assert.That(actualFigure, Is.EqualTo(expectedFigure));
             Assert.That(actualString, Is.EqualTo(expectedString));
         }
 
@@ -52,14 +52,15 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
             var expectedString = expectedFigure.ToString();
 
             // act
-            var figure = FigureCreator.CreateFigure(expectedString);
-            var actualString = figure.ToString();
+            var actualFigure = FigureCreator.CreateFigure(expectedString);
+            var actualString = actualFigure.ToString();
 
             // assert
-            Assert.That(figure, Is.EqualTo(expectedFigure));
+            Assert.That(actualFigure, Is.EqualTo(expectedFigure));
             Assert.That(actualString, Is.EqualTo(expectedString));
         }
 
+        // some of the following are more like intergration tests because the helper logic is also included in creation
         [Test]
         [TestCase("aaa")]
         [TestCase(Circle.NAME)]

@@ -13,7 +13,7 @@ namespace DesignPatterns_HW1.Figures
                 throw new ArgumentException(ErrorMessages.INVALID_SIDE);
             }
 
-            if (!Helper.IsValidTriangle(a, b, c))
+            if (!Helper.IsValidTriangleInequality(a, b, c))
             {
                 throw new ArgumentException(ErrorMessages.INVALID_TRIANGLE);
             }
@@ -51,7 +51,7 @@ namespace DesignPatterns_HW1.Figures
             var currentSides = new[] { A, B, C };
             var otherSides = new[] { other.A, other.B, other.C };
 
-            // TODO: overhead
+            // a bit of overhead
             return currentSides.OrderBy(x => x).SequenceEqual(otherSides.OrderBy(x => x));
         }
 

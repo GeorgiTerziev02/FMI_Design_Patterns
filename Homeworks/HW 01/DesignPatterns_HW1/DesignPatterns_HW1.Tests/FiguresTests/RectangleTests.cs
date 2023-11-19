@@ -30,7 +30,7 @@ namespace DesignPatterns_HW1.Tests.FigureTests
         [Test]
         [TestCase(A, B)]
         [TestCase(B, A)]
-        public void PermiterShouldCalculatePerimeterCorrectly(double a, double b)
+        public void PerimeterShouldCalculatePerimeterCorrectly(double a, double b)
         {
             // arrange
             double expected = (a + b) * 2;

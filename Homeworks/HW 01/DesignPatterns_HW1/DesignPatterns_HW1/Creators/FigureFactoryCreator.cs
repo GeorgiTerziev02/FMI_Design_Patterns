@@ -11,6 +11,7 @@ namespace DesignPatterns_HW1.Creators
         File = 3
     }
 
+    // TODO: check tests
     public static class FigureFactoryCreator
     {
         public static IFigureFactory CreateFactory(string input)

@@ -25,7 +25,7 @@ namespace DesignPatterns_HW1.Tests.FigureTests
         }
 
         [Test]
-        public void PermiterShouldCalculatePerimeterCorrectly()
+        public void PerimeterShouldCalculatePerimeterCorrectly()
         {
             // arrange
             double expected = 2 * RADIUS * Math.PI;

@@ -14,7 +14,7 @@ namespace DesignPatterns_HW1.Tests.CommonTests
             var expectedLength = 4;
             double[] result;
             // act
-            Helper.DoubleParseTokens(tokens, expectedLength, out result);
+            Helper.DoubleParseArgumentTokens(tokens, expectedLength, out result);
             // assert
             Assert.That(expected.SequenceEqual(result), Is.True);
         }
@@ -28,7 +28,7 @@ namespace DesignPatterns_HW1.Tests.CommonTests
             double[] result;
             // act
             // assert
-            var ex = Assert.Throws<ArgumentException>(() => Helper.DoubleParseTokens(tokens, expectedLength, out result));
+            var ex = Assert.Throws<ArgumentException>(() => Helper.DoubleParseArgumentTokens(tokens, expectedLength, out result));
             Assert.That(ex.Message, Is.EqualTo(ErrorMessages.INVALID_INPUT));
         }
 
@@ -41,7 +41,7 @@ namespace DesignPatterns_HW1.Tests.CommonTests
             double[] result;
             // act
             // assert
-            var ex = Assert.Throws<ArgumentException>(() => Helper.DoubleParseTokens(tokens, expectedLength, out result));
+            var ex = Assert.Throws<ArgumentException>(() => Helper.DoubleParseArgumentTokens(tokens, expectedLength, out result));
             Assert.That(ex.Message, Is.EqualTo(ErrorMessages.INVALID_INPUT));
         }
 
@@ -76,7 +76,7 @@ namespace DesignPatterns_HW1.Tests.CommonTests
         {
             // arrange
             // act
-            var result = Helper.IsValidTriangle(a, b, c);
+            var result = Helper.IsValidTriangleInequality(a, b, c);
 
             // assert
             Assert.That(result, Is.True);
@@ -90,7 +90,7 @@ namespace DesignPatterns_HW1.Tests.CommonTests
         {
             // arrange
             // act
-            var result = Helper.IsValidTriangle(a, b, c);
+            var result = Helper.IsValidTriangleInequality(a, b, c);
 
             // assert
             Assert.That(result, Is.False);
