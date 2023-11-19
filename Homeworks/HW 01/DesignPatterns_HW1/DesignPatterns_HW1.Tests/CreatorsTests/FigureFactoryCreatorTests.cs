@@ -1,6 +1,9 @@
 ﻿using DesignPatterns_HW1.Common;
 using DesignPatterns_HW1.Creators;
 using DesignPatterns_HW1.Factories;
+using DesignPatterns_HW1.Figures;
+using DesignPatterns_HW1.Providers;
+using Moq;
 using System.ComponentModel;
 
 namespace DesignPatterns_HW1.Tests.CreatorsTests
@@ -9,6 +12,29 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
     public class FigureFactoryCreatorTests
     {
         private const string FILENAME = "test.txt";
+        private Mock<IRandomGeneratorProvider> randomGeneratorProviderMock;
+        private Mock<IStreamProvider> streamProvidersMock;
+        private IFigureFactoryCreator figureFactoryCreator;
+        private IFigure figure;
+        private MemoryStream memoryStream;
+
+        [SetUp]
+        public void Setup()
+        {
+            randomGeneratorProviderMock = new Mock<IRandomGeneratorProvider>();
+            randomGeneratorProviderMock.Setup(x => x.GetRandomGenerator()).Returns(new RandomGenerator());
+            streamProvidersMock = new Mock<IStreamProvider>();
+            InitMemoryStream();
+            streamProvidersMock.Setup(x => x.OpenFileForRead(FILENAME)).Returns(memoryStream);
+            streamProvidersMock.Setup(x => x.GetStdIn()).Returns(memoryStream);
+            figureFactoryCreator = new FigureFactoryCreator(randomGeneratorProviderMock.Object, streamProvidersMock.Object);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            memoryStream?.Dispose();
+        }
 
         [Test]
         [TestCase("1")]
@@ -17,7 +43,7 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
         {
             // arrange
             // act
-            var factory = FigureFactoryCreator.CreateFactory(input);
+            var factory = figureFactoryCreator.CreateFactory(input);
 
             // assert
             Assert.That(factory, Is.InstanceOf<RandomFigureFactory>());
@@ -30,31 +56,41 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
         {
             // arrange
             // act
-            var factory = FigureFactoryCreator.CreateFactory(input);
+            var factory = figureFactoryCreator.CreateFactory(input);
 
             // assert
             Assert.That(factory, Is.InstanceOf<StreamFigureFactory>());
         }
 
-        // TODO: more interfaces?
-        //[Test]
-        //[TestCase($"3 {FILENAME}")]
-        //[TestCase($"File {FILENAME}")]
-        //public void CreateShouldCreateStreamFigureFactoryWithFileSourceSuccessfully(string input)
-        //{
-        //    // arrange
-        //    var tokens = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-        //    var filePath = tokens[1];
-        //    using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None)) { }
+        [Test]
+        [TestCase($"3 {FILENAME}")]
+        [TestCase($"File {FILENAME}")]
+        public void CreateShouldCreateStreamFigureFactoryWithFileSourceSuccessfully(string input)
+        {
+            // arrange
+            // act
+            var factory = figureFactoryCreator.CreateFactory(input);
 
-        //    // act
-        //    var factory = FigureFactoryCreator.CreateFactory(input);
+            // assert
+            Assert.That(factory, Is.InstanceOf<StreamFigureFactory>());
+        }
 
-        //    // assert
-        //    Assert.That(factory, Is.InstanceOf<StreamFigureFactory>());
 
-        //    File.Delete(filePath);
-        //}
+        [Test]
+        [TestCase("2")]
+        [TestCase("Console")]
+        [TestCase($"3 {FILENAME}")]
+        [TestCase($"File {FILENAME}")]
+        public void CreateShouldCreateStreamFigureFactoryThatCanReadSuccessfully(string input)
+        {
+            // arrange
+            // act
+            var factory = figureFactoryCreator.CreateFactory(input);
+            var figure = factory.Create();
+
+            // assert
+            Assert.That(figure, Is.EqualTo(this.figure));
+        }
 
         [Test]
         [TestCase("a")]
@@ -65,7 +101,7 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
             // arrange
             // act
             // assert
-            var exception = Assert.Throws<InvalidEnumArgumentException>(() => FigureFactoryCreator.CreateFactory(input));
+            var exception = Assert.Throws<InvalidEnumArgumentException>(() => figureFactoryCreator.CreateFactory(input));
             Assert.That(exception.Message, Is.EqualTo(ErrorMessages.INVALID_FACTORY_TYPE));
         }
 
@@ -78,8 +114,21 @@ namespace DesignPatterns_HW1.Tests.CreatorsTests
             // arrange
             // act
             // assert
-            var exception = Assert.Throws<ArgumentException>(() => FigureFactoryCreator.CreateFactory(input));
+            var exception = Assert.Throws<ArgumentException>(() => figureFactoryCreator.CreateFactory(input));
             Assert.That(exception.Message, Is.EqualTo(ErrorMessages.INVALID_INPUT));
+        }
+
+
+        private void InitMemoryStream()
+        {
+            memoryStream = new MemoryStream();
+            var writer = new StreamWriter(memoryStream, leaveOpen: true);
+            figure = new Circle(5.5);
+            var str = figure.ToString();
+            writer.Write(str);
+            writer.Flush();
+            memoryStream.Seek(0, SeekOrigin.Begin);
+            writer.Dispose();
         }
     }
 }

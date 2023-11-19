@@ -13,8 +13,8 @@ namespace DesignPatterns_HW1.Tests.FactoriesTests
             // arrange
             var expectedFigure = new Circle(5.5);
             var expectedString = expectedFigure.ToString();
-            var stream = new MemoryStream();
-            var writer = new StreamWriter(stream, leaveOpen: true);
+            using var stream = new MemoryStream();
+            using var writer = new StreamWriter(stream, leaveOpen: true);
             writer.Write(expectedString);
             writer.Flush();
             stream.Seek(0, SeekOrigin.Begin);

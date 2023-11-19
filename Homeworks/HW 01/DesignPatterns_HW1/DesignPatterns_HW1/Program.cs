@@ -3,6 +3,7 @@ using DesignPatterns_HW1.Creators;
 using DesignPatterns_HW1.Factories;
 using DesignPatterns_HW1.Figures;
 using DesignPatterns_HW1.FiguresContainer;
+using DesignPatterns_HW1.Providers;
 
 namespace DesignPatterns_HW1
 {
@@ -11,7 +12,10 @@ namespace DesignPatterns_HW1
 
         public static void Main()
         {
-            using var figureFactory = ReadFigureFactory();
+            IFigureFactoryCreatorProvider figureFactoryCreatorProvider = new FigureFactoryCreatorProvider();
+            IFigureFactoryCreator figureFactoryCreator =  figureFactoryCreatorProvider.GetFigureFactoryCreator();
+
+            using var figureFactory = ReadFigureFactory(figureFactoryCreator);
             Start(figureFactory);
         }
 
@@ -82,7 +86,7 @@ namespace DesignPatterns_HW1
             }
         }
 
-        public static IFigureFactory ReadFigureFactory()
+        public static IFigureFactory ReadFigureFactory(IFigureFactoryCreator figureFactoryCreator)
         {
             PrintFactoryOptions();
 
@@ -90,7 +94,7 @@ namespace DesignPatterns_HW1
             {
                 try
                 {
-                    return FigureFactoryCreator.CreateFactory(Console.ReadLine()!);
+                    return figureFactoryCreator.CreateFactory(Console.ReadLine()!);
                 }
                 catch (Exception e)
                 {
