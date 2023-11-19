@@ -21,7 +21,7 @@ namespace DesignPatterns_HW1
 
         public static void Start(IFigureFactory figureFactory)
         {
-            var figuresContainer = CreateFigures(figureFactory);
+            var figuresContainer = LoadContainer(figureFactory);
 
             while (true)
             {
@@ -143,7 +143,7 @@ namespace DesignPatterns_HW1
             }
         }
 
-        public static IFiguresContainer CreateFigures(IFigureFactory figureFactory)
+        public static IFiguresContainer LoadContainer(IFigureFactory figureFactory)
         {
             var count = ReadFiguresCount();
             var figuresContainer = FiguresContainerCreator.Create(count);
