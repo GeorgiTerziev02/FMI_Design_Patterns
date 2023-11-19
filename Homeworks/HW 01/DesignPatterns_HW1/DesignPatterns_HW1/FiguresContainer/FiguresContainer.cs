@@ -20,6 +20,8 @@ namespace DesignPatterns_HW1.FiguresContainer
 
         public int Count => _figures.Count;
 
+        public int Capacity => _figures.Capacity;
+
         public IFigure this[int index]
         {
             get

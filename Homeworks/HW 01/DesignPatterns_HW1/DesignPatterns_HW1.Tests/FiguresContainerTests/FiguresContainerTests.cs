@@ -46,6 +46,21 @@ namespace DesignPatterns_HW1.Tests.FiguresContainerTests
         }
 
         [Test]
+        public void CapacityShouldReturnCorrectCount()
+        {
+            // Arrange
+            var figuresContainer = new FiguresContainer.FiguresContainer(CONTAINER_SIZE);
+            var figure = new Circle(1);
+
+            // Act
+            figuresContainer.Add(figure);
+            var actualCount = figuresContainer.Capacity;
+
+            // Assert
+            Assert.That(actualCount, Is.EqualTo(CONTAINER_SIZE));
+        }
+
+        [Test]
         public void AddShouldAddCorrectly()
         {
             // arrange
@@ -94,7 +109,7 @@ namespace DesignPatterns_HW1.Tests.FiguresContainerTests
             var figure2 = new Rectangle(1, 5);
             figuresContainer.Add(figure);
             figuresContainer.Add(figure2);
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             sb.AppendLine(figure.ToString()).AppendLine(figure2.ToString());
             var expectedString = sb.ToString();
 
