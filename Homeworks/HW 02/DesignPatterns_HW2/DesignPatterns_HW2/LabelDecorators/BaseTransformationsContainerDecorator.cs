@@ -3,7 +3,7 @@ using DesignPatterns_HW2.Transformations;
 
 namespace DesignPatterns_HW2.LabelDecorators
 {
-    public abstract class BaseTransformationsContainerDecorator : LabelDecoratorBase
+    public abstract class BaseTransformationsContainerDecorator : BaseLabelDecorator
     {
         protected readonly IList<ITextTransformation> transformations;
 
