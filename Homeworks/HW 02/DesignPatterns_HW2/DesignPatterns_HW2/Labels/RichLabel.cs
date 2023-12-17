@@ -13,6 +13,9 @@
             _font = font;
         }
 
-
+        public override string GetText()
+        {
+            return $"<span style=\"color:{_color};font-size:{_size};font-family:{_font};\">{base.GetText()}</span>";
+        }
     }
 }
