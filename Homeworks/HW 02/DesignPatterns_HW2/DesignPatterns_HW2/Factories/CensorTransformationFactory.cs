@@ -2,14 +2,17 @@
 
 namespace DesignPatterns_HW2.Factories
 {
-    // TODO: singleton?
-    public class CensorTransformationFactory
+    public interface ICensorTransformationFactory
     {
-        // TODO: ImmutableDictionary
+        ITextTransformation Create(string toCensor);
+    }
+
+    public class CensorTransformationFactory : ICensorTransformationFactory
+    {
         private readonly IDictionary<string, CensorTransformation> _cache
             = new Dictionary<string, CensorTransformation>();
 
-        ITextTransformation Create(string toCensor)
+        public ITextTransformation Create(string toCensor)
         {
             if (!_cache.ContainsKey(toCensor))
             {

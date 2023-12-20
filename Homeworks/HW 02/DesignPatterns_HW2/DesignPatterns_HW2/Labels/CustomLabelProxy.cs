@@ -1,39 +1,46 @@
-﻿using System.Diagnostics.Metrics;
+﻿using DesignPatterns_HW2.Factories;
+using System.Diagnostics.Metrics;
 
 namespace DesignPatterns_HW2.Labels
 {
     public class CustomLabelProxy : ILabel
     {
+        private readonly ILabelFactory _labelFactory;
+        private readonly int _timeout = 0;
         private int _counter = 0;
-        private int _timeout = 0;
-        private string _text = null;
+        private ILabel _label = null;
 
-        public CustomLabelProxy(int timeout)
+        public CustomLabelProxy(ILabelFactory labelFactory, int timeout)
         {
+            this._labelFactory = labelFactory;
             this._timeout = timeout;
         }
 
-        private void SetText(string text)
+        private void CreateLabel()
         {
-            if(_counter == _timeout)
-            {
-                _counter = 0;
-                _text = text;
-            }
+            _label = _labelFactory.Create(Console.ReadLine()!);
         }
-        // TODO: is this expected?
+
         public string GetText()
         {
-            if(string.IsNullOrWhiteSpace(_text))
+            // TODO: prompt when timeout is hit
+            if(_label == null)
             {
-                _text = Console.ReadLine();
+                // get type to create
+                // pass to factory
+                CreateLabel();
+            }
+            else if(_counter == _timeout)
+            {
+                // TODO: promp user to change text
+                CreateLabel();
             }
             else if(_counter < _timeout)
             {
                 _counter++;
             }
 
-            return _text;
+            return _label.GetText();
         }
     }
 }

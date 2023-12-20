@@ -3,8 +3,14 @@
     public class DecorateTransformation : ITextTransformation
     {
         // TODO: should this come from the constructor
-        private static readonly string _prefixDecoration = "-={";
-        private static readonly string _postfixDecoration = "}=-";
+        private readonly string _prefixDecoration;
+        private readonly string _postfixDecoration;
+
+        public DecorateTransformation(string prefixDecoration = "-={", string postfixDecoration = "}=-")
+        {
+            _prefixDecoration = prefixDecoration;
+            _postfixDecoration = postfixDecoration;
+        }
 
         public string Transform(string text)
         {

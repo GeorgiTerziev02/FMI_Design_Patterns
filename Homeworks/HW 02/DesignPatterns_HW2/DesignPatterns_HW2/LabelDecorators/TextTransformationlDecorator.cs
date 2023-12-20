@@ -7,7 +7,8 @@ namespace DesignPatterns_HW2.LabelDecorators
     {
         private readonly ITextTransformation _transformation;
 
-        public TextTransformationlDecorator(ILabel label, ITextTransformation transformation) : base(label)
+        public TextTransformationlDecorator(ILabel label, ITextTransformation transformation) 
+            : base(label)
         {
             _transformation = transformation;
         }

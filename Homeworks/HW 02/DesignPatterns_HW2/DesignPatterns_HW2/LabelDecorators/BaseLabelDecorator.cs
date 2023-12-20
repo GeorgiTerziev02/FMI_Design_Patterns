@@ -42,6 +42,7 @@ namespace DesignPatterns_HW2.LabelDecorators
         // or this with the equals on decorators and transformations?
         public ILabel RemoveDecorator(Type decoratorType)
         {
+            // TODO: Equals - compare all with equals
             if(GetType() == decoratorType)
             {
                 return _label;

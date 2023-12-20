@@ -2,6 +2,6 @@
 {
     public interface ITextTransformation
     {
-        public string Transform(string text);
+        string Transform(string text);
     }
 }
