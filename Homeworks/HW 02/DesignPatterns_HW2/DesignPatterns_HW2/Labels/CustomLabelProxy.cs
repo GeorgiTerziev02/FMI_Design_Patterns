@@ -1,5 +1,4 @@
 ﻿using DesignPatterns_HW2.Factories;
-using System.Diagnostics.Metrics;
 
 namespace DesignPatterns_HW2.Labels
 {
