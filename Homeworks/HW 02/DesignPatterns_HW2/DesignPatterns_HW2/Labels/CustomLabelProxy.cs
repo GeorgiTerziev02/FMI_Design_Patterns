@@ -8,32 +8,35 @@ namespace DesignPatterns_HW2.Labels
         private readonly ILabelFactory _labelFactory;
         private readonly int _timeout = 0;
         private int _counter = 0;
-        private ILabel _label = null;
+        private ILabel? _label = null;
 
         public CustomLabelProxy(ILabelFactory labelFactory, int timeout)
         {
-            this._labelFactory = labelFactory;
-            this._timeout = timeout;
+            _labelFactory = labelFactory;
+            _timeout = timeout;
         }
 
-        private void CreateLabel()
+        private void ReadLabel()
         {
             _label = _labelFactory.Create(Console.ReadLine()!);
         }
 
         public string GetText()
         {
-            // TODO: prompt when timeout is hit
             if(_label == null)
             {
-                // get type to create
-                // pass to factory
-                CreateLabel();
+                // TODO: get type to create then pass to factory
+                ReadLabel();
             }
             else if(_counter == _timeout)
             {
-                // TODO: promp user to change text
-                CreateLabel();
+                Console.WriteLine("Enter 1(true) or 0(false)");
+                var response = bool.Parse(Console.ReadLine()!);
+
+                if(response)
+                {
+                    ReadLabel();
+                }
             }
             else if(_counter < _timeout)
             {

@@ -1,6 +1,6 @@
 ﻿namespace DesignPatterns_HW2.Labels
 {
-    public class HelpLabel : ILabel
+    public class HelpLabel : IHelpLabel
     {
         private readonly ILabel _label;
         private readonly ILabel _helpLabel;

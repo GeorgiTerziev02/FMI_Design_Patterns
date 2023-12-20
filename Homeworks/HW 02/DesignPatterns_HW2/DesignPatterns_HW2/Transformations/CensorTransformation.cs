@@ -2,6 +2,7 @@
 {
     public class CensorTransformation : ITextTransformation
     {
+        private static readonly char CENSOR_SYMBOL = '*';
         private readonly string _toCensor;
 
         public CensorTransformation(string toCensor)
@@ -11,7 +12,7 @@
 
         public string Transform(string text)
         {
-            return text.Replace(_toCensor, new string('*', _toCensor.Length));
+            return text.Replace(_toCensor, new string(CENSOR_SYMBOL, _toCensor.Length));
         }
     }
 }

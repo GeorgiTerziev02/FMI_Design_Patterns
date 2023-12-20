@@ -14,13 +14,13 @@ namespace DesignPatterns_HW2.LabelDecorators
             IRandomGenerator randomGenerator
             ) : base(label, transformations)
         {
-            this._randomGenerator = randomGenerator;
+            _randomGenerator = randomGenerator;
         }
 
         public override string GetText()
         {
-            var randomIndex = this._randomGenerator.Next(this.transformations.Count);
-            return this.transformations[randomIndex].Transform(base.GetText());
+            var randomIndex = _randomGenerator.Next(transformations.Count);
+            return transformations[randomIndex].Transform(base.GetText());
         }
     }
 }

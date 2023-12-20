@@ -2,7 +2,6 @@
 {
     public class DecorateTransformation : ITextTransformation
     {
-        // TODO: should this come from the constructor
         private readonly string _prefixDecoration;
         private readonly string _postfixDecoration;
 
