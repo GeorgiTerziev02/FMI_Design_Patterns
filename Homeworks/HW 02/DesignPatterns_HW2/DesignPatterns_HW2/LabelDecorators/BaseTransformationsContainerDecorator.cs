@@ -19,7 +19,6 @@ namespace DesignPatterns_HW2.LabelDecorators
 
         public override bool Equals(object? obj) => Equals(obj as BaseTransformationsContainerDecorator);
 
-
         public bool Equals(BaseTransformationsContainerDecorator? other)
         {
             if (other == null || other.transformations.Count != transformations.Count)

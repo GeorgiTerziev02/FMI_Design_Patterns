@@ -21,8 +21,10 @@ namespace DesignPatterns_HW2.LabelDecorators
             return _label.GetText();
         }
 
+        /** Should not be used in child classes */
         public override bool Equals(object? obj) => Equals(obj as BaseLabelDecorator);
 
+        /** Should not be used in child classes */
         public bool Equals(BaseLabelDecorator? other)
         {
             // This method will be called from child 
@@ -51,7 +53,6 @@ namespace DesignPatterns_HW2.LabelDecorators
             }
 
             return label;
-
         }
 
         public ILabel RemoveDecorator(ILabelDecorator decoratorToRemove)
