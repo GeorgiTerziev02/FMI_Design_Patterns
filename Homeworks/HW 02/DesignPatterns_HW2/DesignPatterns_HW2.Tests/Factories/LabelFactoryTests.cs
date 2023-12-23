@@ -7,7 +7,7 @@ namespace DesignPatterns_HW2.Tests.Factories
     public class LabelFactoryTests
     {
         private const string LABEL_TEXT = "some text";
-        private LabelFactory _labelFactory;
+        private ILabelFactory _labelFactory;
 
         [SetUp]
         public void SetUp()
@@ -16,36 +16,63 @@ namespace DesignPatterns_HW2.Tests.Factories
         }
 
         [Test]
-        public void CreateReturnsLabel()
+        public void CreateLabelReturnsLabel()
         {
             // Arrange
             // Act
-            var label = _labelFactory.Create(LABEL_TEXT);
+            var label = _labelFactory.CreateLabel(LABEL_TEXT);
 
             // Assert
             Assert.That(label, Is.InstanceOf<Label>());
+            Assert.That(label.GetText(), Is.EqualTo(LABEL_TEXT));
         }
 
         [Test]
-        public void CreateReturnsNewInstance()
+        public void CreateHelpLabelReturnsHelpLabel()
         {
             // Arrange
+            const string HELP_TEXT = "help text";
+            var label1 = new Label(LABEL_TEXT);
+            var label2 = new Label(HELP_TEXT);
+
             // Act
-            var first = _labelFactory.Create(LABEL_TEXT);
-            var second = _labelFactory.Create(LABEL_TEXT);
+            var label = _labelFactory.CreateHelpLabel(label1, label2);
 
             // Assert
-            Assert.That(first, Is.Not.SameAs(second));
+            Assert.That(label, Is.InstanceOf<HelpLabel>());
+            Assert.That(label.GetText(), Is.EqualTo(LABEL_TEXT));
+            var helpLabel = label as HelpLabel;
+            Assert.That(helpLabel, Is.Not.Null);
+            Assert.That(helpLabel.GetHelpText(), Is.EqualTo(HELP_TEXT));
         }
 
         [Test]
-        public void CreateReturnsLabelWithProvidedText()
+        public void CreateRichLabelReturnsRichLabel()
         {
             // Arrange
+            string color = "red";
+            int size = 12;
+            string font = "Arial";
+
             // Act
-            var label = _labelFactory.Create(LABEL_TEXT);
+            var label = _labelFactory.CreateRichLabel(LABEL_TEXT, color, size, font);
 
             // Assert
+            Assert.That(label, Is.InstanceOf<RichLabel>());
+            Assert.That(label.GetText(), Is.EqualTo(LABEL_TEXT));
+        }
+
+        [Test]
+        public void CreateCustomLabelProxyReturnsCustomLabelProxy()
+        {
+            // Arrange
+            const int TIMEOUT = 1000;
+
+            // Act
+            var label = _labelFactory.CreateCustomLabelProxy(TIMEOUT);
+
+            // Assert
+            Assert.That(label, Is.InstanceOf<CustomLabelProxy>());
             Assert.That(label.GetText(), Is.EqualTo(LABEL_TEXT));
         }
     }

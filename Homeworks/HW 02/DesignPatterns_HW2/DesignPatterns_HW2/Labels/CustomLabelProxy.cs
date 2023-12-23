@@ -17,7 +17,7 @@ namespace DesignPatterns_HW2.Labels
 
         private void ReadLabel()
         {
-            _label = _labelFactory.Create(Console.ReadLine()!);
+            _label = _labelFactory.CreateLabel(Console.ReadLine()!);
         }
 
         public string GetText()

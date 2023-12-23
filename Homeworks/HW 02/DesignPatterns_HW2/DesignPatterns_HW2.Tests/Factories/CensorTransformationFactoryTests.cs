@@ -6,7 +6,7 @@ namespace DesignPatterns_HW2.Tests.Factories
     [TestFixture]
     public class CensorTransformationFactoryTests
     {
-        private const string TO_CENSOR_TEXT = "some text";
+        private const string TO_CENSOR_TEXT = "abc";
         private ICensorTransformationFactory _censorTransformationFactory;
 
         [SetUp]
@@ -45,6 +45,20 @@ namespace DesignPatterns_HW2.Tests.Factories
             // Act
             var first = _censorTransformationFactory.Create(TO_CENSOR_TEXT);
             var second = _censorTransformationFactory.Create(TO_CENSOR_TEXT + "1");
+
+            // Assert
+            Assert.That(first, Is.Not.SameAs(second));
+        }
+
+        [Test]
+        public void CreateShouldReturnDifferentInstancesForLargerCensorTexts()
+        {
+            // Arrange
+            var largeCensorText = "abcde";
+
+            // Act
+            var first = _censorTransformationFactory.Create(largeCensorText);
+            var second = _censorTransformationFactory.Create(largeCensorText);
 
             // Assert
             Assert.That(first, Is.Not.SameAs(second));
