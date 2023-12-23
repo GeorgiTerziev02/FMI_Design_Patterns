@@ -5,12 +5,12 @@ namespace DesignPatterns_HW2.Tests.Transformations
     [TestFixture]
     public class NormalizeTransformationTests
     {
-        private NormalizeTransformation _normalizeTransformation;
+        private NormalizeTransformation _transformation;
 
         [SetUp]
         public void SetUp()
         {
-            _normalizeTransformation = new NormalizeTransformation();
+            _transformation = new NormalizeTransformation();
         }
 
         [Test]
@@ -21,10 +21,47 @@ namespace DesignPatterns_HW2.Tests.Transformations
             var text = "   Hello   World!   ";
 
             // Act
-            var actual = _normalizeTransformation.Transform(text);
+            var actual = _transformation.Transform(text);
 
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void EqualsShouldReturnTrueWhenOtherTransformationIsNormalizeTransformation()
+        {
+            // Arrange
+            var otherTransformation = new NormalizeTransformation();
+
+            // Act
+            var actual = _transformation.Equals(otherTransformation);
+
+            // Assert
+            Assert.That(actual, Is.True);
+        }
+
+        [Test]
+        public void EqualsShouldReturnFalseWhenOtherTransformationIsNull()
+        {
+            // Arrange
+            // Act
+            var actual = _transformation.Equals(null);
+
+            // Assert
+            Assert.That(actual, Is.False);
+        }
+
+        [Test]
+        public void EqualsShouldReturnFalseWhenOtherObjectIsNotNormalizeTransformation()
+        {
+            // Arrange
+            var otherObj = new object();
+
+            // Act
+            var actual = _transformation.Equals(otherObj);
+
+            // Assert
+            Assert.That(actual, Is.False);
         }
     }
 }

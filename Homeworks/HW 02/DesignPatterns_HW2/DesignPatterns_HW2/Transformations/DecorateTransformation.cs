@@ -15,5 +15,20 @@
         {
             return $"{_prefixDecoration} {text} {_postfixDecoration}";
         }
+
+        public override bool Equals(object? obj)
+            => Equals(obj as DecorateTransformation);
+
+        public bool Equals(DecorateTransformation? other)
+        {
+            if(other == null)
+            {
+                return false;
+            }
+
+            return _prefixDecoration == other._prefixDecoration
+                && _postfixDecoration == other._postfixDecoration;
+        }
+
     }
 }

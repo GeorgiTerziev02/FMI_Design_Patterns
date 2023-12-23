@@ -43,5 +43,42 @@ namespace DesignPatterns_HW2.Tests.Transformations
             // Assert
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void EqualsShouldReturnTrueWhenOtherTransformationIsCapitalizeTransformation()
+        {
+            // Arrange
+            var otherTransformation = new CapitalizeTransformation();
+
+            // Act
+            var actual = _transformation.Equals(otherTransformation);
+
+            // Assert
+            Assert.That(actual, Is.True);
+        }
+
+        [Test]
+        public void EqualsShouldReturnFalseWhenOtherTransformationIsNull()
+        {
+            // Arrange
+            // Act
+            var actual = _transformation.Equals(null);
+
+            // Assert
+            Assert.That(actual, Is.False);
+        }
+
+        [Test]
+        public void EqualsShouldReturnFalseWhenOtherObjectIsNotCapitalizeTransformation()
+        {
+            // Arrange
+            var otherObj = new object();
+
+            // Act
+            var actual = _transformation.Equals(otherObj);
+
+            // Assert
+            Assert.That(actual, Is.False);
+        }
     }
 }

@@ -14,5 +14,17 @@
         {
             return text.Replace(_toCensor, new string(CENSOR_SYMBOL, _toCensor.Length));
         }
+
+        public override bool Equals(object? obj) => Equals(obj as CensorTransformation);
+
+        public bool Equals(CensorTransformation? other)
+        {
+            if(other == null)
+            {
+                return false;
+            }
+
+            return _toCensor == other._toCensor;
+        }
     }
 }

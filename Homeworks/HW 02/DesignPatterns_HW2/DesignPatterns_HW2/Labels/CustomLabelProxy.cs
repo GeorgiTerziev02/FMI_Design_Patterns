@@ -42,7 +42,7 @@ namespace DesignPatterns_HW2.Labels
                 _counter++;
             }
 
-            return _label.GetText();
+            return _label!.GetText();
         }
     }
 }

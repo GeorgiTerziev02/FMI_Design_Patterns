@@ -18,5 +18,30 @@
 
             return text;
         }
+
+        public override bool Equals(object? obj) => Equals(obj as CompositeTextTransformation);
+
+        public bool Equals(CompositeTextTransformation? other)
+        {
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (_transformations.Count != other._transformations.Count)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < _transformations.Count; i++)
+            {
+                if (!_transformations[i].Equals(other._transformations[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

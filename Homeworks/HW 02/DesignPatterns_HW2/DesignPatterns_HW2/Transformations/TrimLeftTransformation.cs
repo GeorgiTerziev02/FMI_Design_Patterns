@@ -6,5 +6,12 @@
         {
             return text.TrimStart();
         }
+
+        public override bool Equals(object? obj) => Equals(obj as TrimLeftTransformation);
+
+        public bool Equals(TrimLeftTransformation? other)
+        {
+            return other != null;
+        }
     }
 }

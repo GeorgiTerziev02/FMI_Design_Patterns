@@ -2,7 +2,12 @@
 
 namespace DesignPatterns_HW2.LabelDecorators
 {
-    public abstract class BaseLabelDecorator : ILabel
+    public interface ILabelDecorator : ILabel
+    {
+        ILabel RemoveDecorator(ILabelDecorator decoratorToRemove);
+    }
+
+    public abstract class BaseLabelDecorator : ILabelDecorator
     {
         private ILabel _label;
 
@@ -16,41 +21,49 @@ namespace DesignPatterns_HW2.LabelDecorators
             return _label.GetText();
         }
 
-        public static ILabel RemoveDecoratorFrom(ILabel label, Type decoratorType)
+        public override bool Equals(object? obj) => Equals(obj as BaseLabelDecorator);
+
+        public bool Equals(BaseLabelDecorator? other)
+        {
+            // This method will be called from child 
+            // with the idea to remove a specific decorator
+            // from the linked list of decorators.
+            // the passed "decoratorToRemove" is mock decorator
+            // with null label => labels should not be compared
+            return other != null;
+        }
+
+        public static ILabel RemoveDecoratorFrom(ILabel label, ILabelDecorator decoratorToRemove)
         {
             if (label == null)
             {
                 throw new ArgumentNullException(nameof(label));
             }
 
-            if (decoratorType == null)
+            if (decoratorToRemove == null)
             {
-                throw new ArgumentNullException(nameof(decoratorType));
+                throw new ArgumentNullException(nameof(decoratorToRemove));
             }
 
-            if (label is BaseLabelDecorator labelDecorator)
+            if (label is ILabelDecorator labelDecorator)
             {
-                return labelDecorator.RemoveDecorator(decoratorType);
+                return labelDecorator.RemoveDecorator(decoratorToRemove);
             }
 
             return label;
 
         }
 
-        // TODO: this does not remove based on the transformation type
-        // the other approach with decorator for every transformation is better?
-        // or this with the equals on decorators and transformations?
-        public ILabel RemoveDecorator(Type decoratorType)
+        public ILabel RemoveDecorator(ILabelDecorator decoratorToRemove)
         {
-            // TODO: Equals - compare all with equals
-            if(GetType() == decoratorType)
+            if(Equals(decoratorToRemove))
             {
                 return _label;
             }
 
-            if (_label is BaseLabelDecorator labelDecorator)
+            if (_label is ILabelDecorator labelDecorator)
             {
-                _label = labelDecorator.RemoveDecorator(decoratorType);
+                _label = labelDecorator.RemoveDecorator(decoratorToRemove);
                 return this;
             }
 

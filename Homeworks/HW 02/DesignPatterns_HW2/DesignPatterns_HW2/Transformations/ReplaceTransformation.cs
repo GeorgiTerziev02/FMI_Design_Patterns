@@ -15,5 +15,17 @@
         {
             return text.Replace(_toReplace, _replaceWith);
         }
+
+        public override bool Equals(object? obj) => Equals(obj as ReplaceTransformation);
+
+        public bool Equals(ReplaceTransformation? other)
+        {
+            if(other == null)
+            {
+                return false;
+            }
+
+            return _toReplace == other._toReplace && _replaceWith == other._replaceWith;
+        }
     }
 }
