@@ -1,5 +1,4 @@
 ﻿using DesignPatterns_HW2.Factories;
-using DesignPatterns_HW2.Providers;
 
 namespace DesignPatterns_HW2.Labels
 {

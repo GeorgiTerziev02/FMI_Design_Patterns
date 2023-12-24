@@ -8,7 +8,6 @@ namespace DesignPatterns_HW2.Tests.Labels
     public class CustomLabelProxyTests
     {
         private ILabelFactory labelFactory;
-        private IStreamProvider streamProvider;
         private CustomLabelProxy customLabelProxy;
 
         [SetUp]
