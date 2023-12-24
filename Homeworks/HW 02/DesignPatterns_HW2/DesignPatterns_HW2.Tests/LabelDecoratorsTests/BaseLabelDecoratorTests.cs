@@ -56,6 +56,18 @@ namespace DesignPatterns_HW2.Tests.LabelDecoratorsTests
         }
 
         [Test]
+        public void GetTextWithMultipleDecoratorsShouldWorkCorectly()
+        {
+            // Arrange
+            // Act
+            var decorator = new BaseLabelDecoratorTestClass(baseLabelDecorator, "2");
+            decorator = new BaseLabelDecoratorTestClass(decorator, "3", false);
+
+            // Assert
+            Assert.That(decorator.GetText(), Is.EqualTo("321" + LABEL_TEXT));
+        }
+
+        [Test]
         public void RemoveDecoratorShouldRemoveLastDecorator()
         {
             // Arrange
@@ -130,6 +142,30 @@ namespace DesignPatterns_HW2.Tests.LabelDecoratorsTests
             {
                 Assert.That(d, Is.SameAs(baseLabelDecorator));
                 Assert.That(d.GetText(), Is.EqualTo("1" + LABEL_TEXT));
+            }
+            else
+            {
+                Assert.Fail();
+            }
+        }
+
+        [Test]
+        public void StaticRemoveDecoratorFromShouldRemoveMiddleDecorator()
+        {
+            // Arrange
+            var decoratorToRemove = new BaseLabelDecoratorTestClass(null);
+            var decorator = new BaseLabelDecoratorTestClass(baseLabelDecorator, "2");
+            decorator = new BaseLabelDecoratorTestClass(decorator, "3", false);
+            Assert.That(decorator.GetText(), Is.EqualTo("321" + LABEL_TEXT));
+
+            // Act
+            var afterDecoratorRemoved = BaseLabelDecorator.RemoveDecoratorFrom(decorator, decoratorToRemove);
+
+            // Assert
+            if (afterDecoratorRemoved is BaseLabelDecorator d)
+            {
+                Assert.That(d, Is.SameAs(decorator));
+                Assert.That(d.GetText(), Is.EqualTo("31" + LABEL_TEXT));
             }
             else
             {

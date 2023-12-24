@@ -23,6 +23,7 @@ namespace DesignPatterns_HW2.Labels
         private void ReadLabel()
         {
             _label = _labelFactory.CreateLabel(_inputStreamReader.ReadLine()!);
+            _counter = 0;
         }
 
         public string GetText()
