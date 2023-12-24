@@ -10,7 +10,7 @@ namespace DesignPatterns_HW2.Factories
 
         ILabel CreateHelpLabel(ILabel label, ILabel helpLabel);
 
-        ILabel CreateCustomLabelProxy(int timeout);
+        ILabel CreateCustomLabelProxy(Stream inputStream, int timeout);
     }
 
     public class LabelFactory : ILabelFactory
@@ -25,9 +25,9 @@ namespace DesignPatterns_HW2.Factories
             return new HelpLabel(label, helpLabel);
         }
 
-        public ILabel CreateCustomLabelProxy(int timeout)
+        public ILabel CreateCustomLabelProxy(Stream inputStream, int timeout)
         {
-            return new CustomLabelProxy(this, timeout);
+            return new CustomLabelProxy(this, inputStream, timeout);
         }
 
         public ILabel CreateRichLabel(string text, string color, int size, string font)

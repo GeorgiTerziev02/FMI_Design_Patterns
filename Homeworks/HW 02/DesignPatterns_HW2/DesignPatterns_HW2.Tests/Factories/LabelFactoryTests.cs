@@ -70,9 +70,10 @@ namespace DesignPatterns_HW2.Tests.Factories
         {
             // Arrange
             const int TIMEOUT = 1000;
+            var stream = new MemoryStream();
 
             // Act
-            var label = _labelFactory.CreateCustomLabelProxy(TIMEOUT);
+            var label = _labelFactory.CreateCustomLabelProxy(stream, TIMEOUT);
 
             // Assert
             Assert.That(label, Is.InstanceOf<CustomLabelProxy>());
