@@ -1,5 +1,6 @@
 ﻿using DesignPatterns_HW2.LabelDecorators;
 using DesignPatterns_HW2.Labels;
+using DesignPatterns_HW2.Tests.Mocks;
 using DesignPatterns_HW2.Transformations;
 
 namespace DesignPatterns_HW2.Tests.LabelDecoratorsTests
@@ -8,11 +9,6 @@ namespace DesignPatterns_HW2.Tests.LabelDecoratorsTests
     [TestFixture]
     public class TextTransformationDecoratorTests
     {
-        public class MockTransformation : ITextTransformation
-        {
-            public string Transform(string text) => "Test " + text;
-        }
-
         private Label label;
         private ITextTransformation transformation;
         private TextTransformationDecorator decorator;
@@ -21,7 +17,7 @@ namespace DesignPatterns_HW2.Tests.LabelDecoratorsTests
         public void SetUp()
         {
             label = new Label("text");
-            transformation = new MockTransformation();
+            transformation = new TransformationMock();
             decorator = new TextTransformationDecorator(label, transformation);
         }
 

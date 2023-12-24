@@ -3,6 +3,6 @@
     [TestFixture]
     public class CustomLabelProxyTests
     {
-        // TODO: Add tests 
+        // TODO: Add tests
     }
 }
