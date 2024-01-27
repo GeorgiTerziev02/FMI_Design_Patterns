@@ -1,7 +1,13 @@
 ﻿namespace DesignPatterns_HW3.FileSystem
 {
-    public class Directory : IFileSystemEntity
+    public class Directory : BaseFileSystemEntity
     {
-        public IEnumerable<IFileSystemEntity> Children { get; set; } = new List<IFileSystemEntity>();
+        public Directory(string relativePath, ICollection<IFileSystemEntity> children)
+            : base(relativePath)
+        {
+            Children = children;
+        }
+
+        public ICollection<IFileSystemEntity> Children { get; }
     }
 }

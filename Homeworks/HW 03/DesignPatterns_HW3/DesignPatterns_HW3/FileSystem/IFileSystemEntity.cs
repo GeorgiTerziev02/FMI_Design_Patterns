@@ -2,6 +2,8 @@
 {
     public interface IFileSystemEntity
     {
+        string RelativePath { get; }
 
+        string Checksum { get; }
     }
 }

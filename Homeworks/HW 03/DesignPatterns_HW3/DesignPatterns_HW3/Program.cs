@@ -10,14 +10,13 @@ namespace DesignPatterns_HW3
             //var path = Console.ReadLine();
 
             var path = "D:\\FMI HW\\Semester5\\Design Patterns\\FMI_Design_Patterns\\Homeworks\\HW 03\\DesignPatterns_HW3\\HashTestFolder";
+            var singleFilePath = "D:\\FMI HW\\Semester5\\Design Patterns\\FMI_Design_Patterns\\Homeworks\\HW 03\\DesignPatterns_HW3\\HashTestFolder\\TestFile1.txt";
             var checksumCalculator = new MD5ChecksumCalculator();
 
-            Directory.GetFiles(path).ToList().ForEach(file =>
-            {
-                using var stream = File.OpenRead(file);
-                var checksum = checksumCalculator.Calculate(stream);
-                Console.WriteLine($"File: {file} | Checksum: {checksum}");
-            });
+            var fileSystemBuilder = new FileSystemBuilder.FileSystemNotFollowingShortcutBuilder();
+
+            var result1 = fileSystemBuilder.Build(path);
+            var result2 = fileSystemBuilder.Build(singleFilePath);
         }
     }
 }
