@@ -14,7 +14,7 @@ namespace DesignPatterns_HW3.FileSystemBuilder
         public FileSystemNotFollowingShortcutBuilder(
             IFileSystemProvider fileSystemProvider)
         {
-            this._fileSystemProvider = fileSystemProvider;
+            _fileSystemProvider = fileSystemProvider;
         }
 
         public IFileSystemEntity Build(string path)

@@ -8,6 +8,6 @@
 
         IEnumerable<string> GetFileSystemEntries(string path);
 
-        UInt64 GetFileSize(string path);
+        ulong GetFileSize(string path);
     }
 }
