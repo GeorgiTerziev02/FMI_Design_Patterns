@@ -2,7 +2,7 @@
 {
     public class File : BaseFileSystemEntity
     {
-        public File(string relativePath) : base(relativePath)
+        public File(string relativePath, ulong size) : base(relativePath, size)
         {
         }
     }

@@ -2,8 +2,8 @@
 {
     public class Directory : BaseFileSystemEntity
     {
-        public Directory(string relativePath, ICollection<IFileSystemEntity> children)
-            : base(relativePath)
+        public Directory(string relativePath, ulong size, ICollection<IFileSystemEntity> children)
+            : base(relativePath, size)
         {
             Children = children;
         }

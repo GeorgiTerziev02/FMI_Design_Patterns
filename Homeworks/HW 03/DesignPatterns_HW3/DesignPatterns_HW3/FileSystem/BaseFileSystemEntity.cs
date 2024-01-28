@@ -2,15 +2,14 @@
 {
     public abstract class BaseFileSystemEntity : IFileSystemEntity
     {
-        public BaseFileSystemEntity(string relativePath)
+        public BaseFileSystemEntity(string relativePath, ulong size)
         {
             RelativePath = relativePath;
-            // TODO: Implement checksum calculation
-            Checksum = "";
+            Size = size;
         }
 
         public string RelativePath { get; }
 
-        public string Checksum { get; }
+        public ulong Size { get; }
     }
 }

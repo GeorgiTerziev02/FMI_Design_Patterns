@@ -1,31 +1,42 @@
 ﻿using DesignPatterns_HW3.FileSystem;
+using DesignPatterns_HW3.FileSystemProvider;
 
-using FileSystemFile = System.IO.File;
-using FileSystemDirectory = System.IO.Directory;
-using File = DesignPatterns_HW3.FileSystem.File;
 using Directory = DesignPatterns_HW3.FileSystem.Directory;
+using File = DesignPatterns_HW3.FileSystem.File;
 
 namespace DesignPatterns_HW3.FileSystemBuilder
 {
     // TODO: better name
     public class FileSystemNotFollowingShortcutBuilder : IFileSystemBuilder
     {
+        private readonly IFileSystemProvider _fileSystemProvider;
+
+        public FileSystemNotFollowingShortcutBuilder(
+            IFileSystemProvider fileSystemProvider)
+        {
+            this._fileSystemProvider = fileSystemProvider;
+        }
+
         public IFileSystemEntity Build(string path)
         {
-            if (FileSystemFile.Exists(path))
+            if (_fileSystemProvider.IsFile(path))
             {
-                return new File(path);
+                var fileSize = _fileSystemProvider.GetFileSize(path);
+                return new File(path, fileSize);
             }
 
-            if(FileSystemDirectory.Exists(path))
+            if(_fileSystemProvider.IsDirectory(path))
             {
                 var children = new List<IFileSystemEntity>();
-                foreach (var childPath in FileSystemDirectory.EnumerateFileSystemEntries(path))
+                ulong directorySize = 0;
+                foreach (var childPath in _fileSystemProvider.GetFileSystemEntries(path))
                 {
-                    children.Add(Build(childPath));
+                    var childEntity = Build(childPath);
+                    directorySize += childEntity.Size;
+                    children.Add(childEntity);
                 }
 
-                return new Directory(path, children);
+                return new Directory(path, directorySize, children);
             }
 
             throw new ArgumentException($"Invalid path: {path}");

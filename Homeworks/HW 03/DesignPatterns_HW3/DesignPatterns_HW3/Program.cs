@@ -1,4 +1,5 @@
 ﻿using DesignPatterns_HW3.ChecksuCalculator;
+using DesignPatterns_HW3.FileSystemBuilder;
 
 namespace DesignPatterns_HW3
 {
@@ -12,8 +13,8 @@ namespace DesignPatterns_HW3
             var path = "D:\\FMI HW\\Semester5\\Design Patterns\\FMI_Design_Patterns\\Homeworks\\HW 03\\DesignPatterns_HW3\\HashTestFolder";
             var singleFilePath = "D:\\FMI HW\\Semester5\\Design Patterns\\FMI_Design_Patterns\\Homeworks\\HW 03\\DesignPatterns_HW3\\HashTestFolder\\TestFile1.txt";
             var checksumCalculator = new MD5ChecksumCalculator();
-
-            var fileSystemBuilder = new FileSystemBuilder.FileSystemNotFollowingShortcutBuilder();
+            var fileSystemProvider = new FileSystemProvider.FileSystemProvider();
+            var fileSystemBuilder = new FileSystemNotFollowingShortcutBuilder(fileSystemProvider);
 
             var result1 = fileSystemBuilder.Build(path);
             var result2 = fileSystemBuilder.Build(singleFilePath);

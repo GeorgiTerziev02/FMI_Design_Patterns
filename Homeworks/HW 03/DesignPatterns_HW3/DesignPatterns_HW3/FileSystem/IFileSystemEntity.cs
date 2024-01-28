@@ -4,6 +4,6 @@
     {
         string RelativePath { get; }
 
-        string Checksum { get; }
+        ulong Size  { get; }
     }
 }
