@@ -1,4 +1,6 @@
-﻿namespace DesignPatterns_HW3.FileSystem
+﻿using DesignPatterns_HW3.Visitor;
+
+namespace DesignPatterns_HW3.FileSystem
 {
     public class Directory : BaseFileSystemEntity
     {
@@ -9,5 +11,10 @@
         }
 
         public ICollection<IFileSystemEntity> Children { get; }
+
+        public override void Accept(IFileSystemEntityVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

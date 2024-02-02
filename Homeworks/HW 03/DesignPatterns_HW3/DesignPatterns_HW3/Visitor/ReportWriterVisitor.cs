@@ -1,15 +1,23 @@
-﻿namespace DesignPatterns_HW3.Visitor
+﻿using File = DesignPatterns_HW3.FileSystem.File;
+using Directory = DesignPatterns_HW3.FileSystem.Directory;
+
+namespace DesignPatterns_HW3.Visitor
 {
     public class ReportWriterVisitor : IFileSystemEntityVisitor
     {
-        public void Visit(FileSystem.File file)
+        public void Visit(File file)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"We will file visit: {file.RelativePath} - {file.Size}kb");
         }
 
-        public void Visit(FileSystem.Directory directory)
+        public void Visit(Directory directory)
         {
-            throw new NotImplementedException();
+            Console.WriteLine($"We will visit path: {directory.RelativePath} - {directory.Size}kb");
+
+            foreach (var file in directory.Children)
+            {
+                file.Accept(this);
+            }
         }
     }
 }

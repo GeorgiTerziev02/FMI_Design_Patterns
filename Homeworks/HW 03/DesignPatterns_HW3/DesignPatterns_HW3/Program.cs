@@ -1,5 +1,6 @@
 ﻿using DesignPatterns_HW3.ChecksuCalculator;
 using DesignPatterns_HW3.FileSystemBuilder;
+using DesignPatterns_HW3.Visitor;
 
 namespace DesignPatterns_HW3
 {
@@ -18,6 +19,12 @@ namespace DesignPatterns_HW3
 
             var result1 = fileSystemBuilder.Build(path);
             var result2 = fileSystemBuilder.Build(singleFilePath);
+
+            var visitor = new ReportWriterVisitor();
+            Console.WriteLine("First visit");
+            result1.Accept(visitor);
+            Console.WriteLine("Second visit");
+            result2.Accept(visitor);
         }
     }
 }

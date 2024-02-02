@@ -1,6 +1,6 @@
 ﻿namespace DesignPatterns_HW3.Visitor
 {
-    public class FileSystemEntityVisitor : IFileSystemEntityVisitor
+    public class HashStreamWriterVisitor : IFileSystemEntityVisitor
     {
         public void Visit(FileSystem.File file)
         {
