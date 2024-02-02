@@ -1,8 +1,4 @@
-﻿using SystemFile = System.IO.File;
-using SystemDirectory = System.IO.Directory;
-
-
-namespace DesignPatterns_HW3.FileSystemProvider
+﻿namespace DesignPatterns_HW3.FileSystemProvider
 {
     public class FileSystemProvider : IFileSystemProvider
     {
@@ -25,6 +21,11 @@ namespace DesignPatterns_HW3.FileSystemProvider
         public bool IsFile(string path)
         {
             return SystemFile.Exists(path);
+        }
+
+        public FileStream OpenFile(string path, FileMode mode = FileMode.Open)
+        {
+            return SystemFile.Open(path, mode);
         }
     }
 }

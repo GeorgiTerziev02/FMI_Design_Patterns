@@ -20,11 +20,19 @@ namespace DesignPatterns_HW3
             var result1 = fileSystemBuilder.Build(path);
             var result2 = fileSystemBuilder.Build(singleFilePath);
 
-            var visitor = new ReportWriterVisitor();
+            var visitor1 = new ReportWriterVisitor();
+            Console.WriteLine("First visitor:");
             Console.WriteLine("First visit");
-            result1.Accept(visitor);
+            result1.Accept(visitor1);
             Console.WriteLine("Second visit");
-            result2.Accept(visitor);
+            result2.Accept(visitor1);
+
+            var visitor2 = new HashStreamWriterVisitor(checksumCalculator, fileSystemProvider);
+            Console.WriteLine("Second visitor:");
+            Console.WriteLine("First visit");
+            result1.Accept(visitor2);
+            Console.WriteLine("Second visit");
+            result2.Accept(visitor2);
         }
     }
 }

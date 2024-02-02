@@ -9,5 +9,7 @@
         IEnumerable<string> GetFileSystemEntries(string path);
 
         ulong GetFileSize(string path);
+
+        FileStream OpenFile(string path, FileMode mode);
     }
 }
