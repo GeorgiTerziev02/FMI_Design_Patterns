@@ -1,7 +1,4 @@
-﻿using File = DesignPatterns_HW3.FileSystem.File;
-using Directory = DesignPatterns_HW3.FileSystem.Directory;
-
-namespace DesignPatterns_HW3.Visitor
+﻿namespace DesignPatterns_HW3.Visitor
 {
     public class ReportWriterVisitor : IFileSystemEntityVisitor
     {

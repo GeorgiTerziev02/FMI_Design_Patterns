@@ -1,4 +1,7 @@
-﻿
+﻿using SystemFile = System.IO.File;
+using SystemDirectory = System.IO.Directory;
+
+
 namespace DesignPatterns_HW3.FileSystemProvider
 {
     public class FileSystemProvider : IFileSystemProvider
@@ -11,17 +14,17 @@ namespace DesignPatterns_HW3.FileSystemProvider
 
         public IEnumerable<string> GetFileSystemEntries(string path)
         {
-            return Directory.EnumerateFileSystemEntries(path);
+            return SystemDirectory.EnumerateFileSystemEntries(path);
         }
 
         public bool IsDirectory(string path)
         {
-            return Directory.Exists(path);
+            return SystemDirectory.Exists(path);
         }
 
         public bool IsFile(string path)
         {
-            return File.Exists(path);
+            return SystemFile.Exists(path);
         }
     }
 }

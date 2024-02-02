@@ -1,13 +1,23 @@
-﻿namespace DesignPatterns_HW3.Visitor
+﻿using DesignPatterns_HW3.ChecksuCalculator;
+
+namespace DesignPatterns_HW3.Visitor
 {
     public class HashStreamWriterVisitor : IFileSystemEntityVisitor
     {
-        public void Visit(FileSystem.File file)
+        private readonly IChecksumCalculator _checksumCalculator;
+
+        public HashStreamWriterVisitor(IChecksumCalculator checksumCalculator)
         {
-            throw new NotImplementedException();
+            _checksumCalculator = checksumCalculator;
         }
 
-        public void Visit(FileSystem.Directory directory)
+        public void Visit(File file)
+        {
+            // TODO: Implement
+            // _checksumCalculator.Calculate(file);
+        }
+
+        public void Visit(Directory directory)
         {
             throw new NotImplementedException();
         }
