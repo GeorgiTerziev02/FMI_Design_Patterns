@@ -1,15 +1,20 @@
-﻿namespace DesignPatterns_HW3.Visitor
+﻿using DesignPatterns_HW3.Common;
+
+namespace DesignPatterns_HW3.Visitor
 {
-    public class ReportWriterVisitor : IFileSystemEntityVisitor
+    public class ReportWriterVisitor : BaseStreamWriter, IFileSystemEntityVisitor
     {
+        public ReportWriterVisitor(Stream outputStream) : base(outputStream)
+        { }
+
         public void Visit(File file)
         {
-            Console.WriteLine($"We will file visit: {file.RelativePath} - {file.Size}kb");
+            streamWriter.WriteLine($"We will file visit: {file.RelativePath} - {file.Size}kb");
         }
 
         public void Visit(Directory directory)
         {
-            Console.WriteLine($"We will visit path: {directory.RelativePath} - {directory.Size}kb");
+            streamWriter.WriteLine($"We will file visit: {directory.RelativePath} - {directory.Size}kb");
 
             foreach (var file in directory.Children)
             {
