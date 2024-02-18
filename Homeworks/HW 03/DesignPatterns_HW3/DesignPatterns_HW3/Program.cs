@@ -5,17 +5,19 @@ using DesignPatterns_HW3.Visitor;
 
 namespace DesignPatterns_HW3
 {
-    internal class Program
+    public class Program
     {
-        static void Main()
+        public static void Main()
         {
+            GenerateOneGigabyteFile();
             Console.WriteLine("Enter path to file/folder: ");
             //var path = Console.ReadLine();
 
             var path = "../../../../HashTestFolder";
             var singleFilePath = "../../../../HashTestFolder/TestFile1.txt";
             var checksumCalculator = new MD5ChecksumCalculator();
-            var fileSystemProvider = new FileSystemProvider.FileSystemProvider();
+            var 
+                fileSystemProvider = new FileSystemProvider.FileSystemProvider();
             var fileSystemBuilder = new FileSystemNotFollowingShortcutBuilder(fileSystemProvider);
 
             var result1 = fileSystemBuilder.Build(path);
@@ -36,6 +38,14 @@ namespace DesignPatterns_HW3
             result1.Accept(visitor2);
             Console.WriteLine("Second visit");
             result2.Accept(visitor2);
+        }
+
+        public static void GenerateOneGigabyteFile()
+        {
+            var random = new Random();
+            var bytes = new byte[1024 * 1024 * 1024];
+            random.NextBytes(bytes);
+            SystemFile.WriteAllBytes("../../../../HashTestFolder/1GB.txt", bytes);
         }
     }
 }

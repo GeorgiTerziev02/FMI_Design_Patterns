@@ -26,6 +26,7 @@ namespace DesignPatterns_HW3.Visitor
             // JORO: is this a relative path??
             using var stream = _fileSystemProvider.OpenFile(file.RelativePath, FileMode.Open);
             var checksum = _checksumCalculator.Calculate(stream);
+            Console.WriteLine(checksum);
         }
 
         public void Visit(Directory directory)
