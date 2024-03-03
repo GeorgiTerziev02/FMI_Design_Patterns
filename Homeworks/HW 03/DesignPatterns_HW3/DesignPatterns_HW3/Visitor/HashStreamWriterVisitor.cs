@@ -1,17 +1,20 @@
 ﻿using DesignPatterns_HW3.ChecksuCalculator;
+using DesignPatterns_HW3.Common;
 using DesignPatterns_HW3.FileSystemProvider;
 using DesignPatterns_HW3.Observer;
 
 namespace DesignPatterns_HW3.Visitor
 {
-    public class HashStreamWriterVisitor : BaseObservable, IFileSystemEntityVisitor
+    public class HashStreamWriterVisitor : BaseObservableStreamWriter, IFileSystemEntityVisitor
     {
         private readonly IChecksumCalculator _checksumCalculator;
         private readonly IFileSystemProvider _fileSystemProvider;
 
         public HashStreamWriterVisitor(
+            Stream outputStream,
             IChecksumCalculator checksumCalculator,
-            IFileSystemProvider fileSystemProvider)
+            IFileSystemProvider fileSystemProvider
+            ) : base(outputStream) 
         {
             _checksumCalculator = checksumCalculator;
             _fileSystemProvider = fileSystemProvider;
@@ -32,7 +35,7 @@ namespace DesignPatterns_HW3.Visitor
             // JORO: is this a relative path??
             using var stream = _fileSystemProvider.OpenFile(file.RelativePath, FileMode.Open);
             var checksum = _checksumCalculator.Calculate(stream);
-            Console.WriteLine(checksum);
+            streamWriter.WriteLine($"\rChecksum - {checksum}");
         }
 
         public void Visit(Directory directory)

@@ -9,12 +9,12 @@ namespace DesignPatterns_HW3.Visitor
 
         public void Visit(File file)
         {
-            streamWriter.WriteLine($"We will file visit: {file.RelativePath} - {file.Size}kb");
+            streamWriter.WriteLine($"We will file visit: {file.RelativePath} - {file.Size}b");
         }
 
         public void Visit(Directory directory)
         {
-            streamWriter.WriteLine($"We will file visit: {directory.RelativePath} - {directory.Size}kb");
+            streamWriter.WriteLine($"We will file visit: {directory.RelativePath} - {directory.Size}b");
 
             foreach (var file in directory.Children)
             {

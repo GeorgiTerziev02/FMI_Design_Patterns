@@ -1,11 +1,14 @@
-﻿namespace DesignPatterns_HW3.Common
+﻿using DesignPatterns_HW3.Observer;
+
+namespace DesignPatterns_HW3.Common
 {
-    public abstract class BaseStreamWriter : IDisposable
+    // No multiple inheritance in C#...
+    public class BaseObservableStreamWriter : BaseObservable, IDisposable
     {
         protected readonly Stream stream;
         protected readonly StreamWriter streamWriter;
 
-        public BaseStreamWriter(Stream outputStream)
+        public BaseObservableStreamWriter(Stream outputStream)
         {
             stream = outputStream;
             streamWriter = new StreamWriter(stream)
@@ -22,7 +25,7 @@
             GC.SuppressFinalize(this);
         }
 
-        ~BaseStreamWriter()
+        ~BaseObservableStreamWriter()
         {
             Dispose();
         }
