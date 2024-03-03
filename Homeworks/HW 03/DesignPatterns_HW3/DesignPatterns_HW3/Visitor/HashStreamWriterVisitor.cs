@@ -4,7 +4,7 @@ using DesignPatterns_HW3.Observer;
 
 namespace DesignPatterns_HW3.Visitor
 {
-    public class HashStreamWriterVisitor : Observable, IFileSystemEntityVisitor
+    public class HashStreamWriterVisitor : BaseObservable, IFileSystemEntityVisitor
     {
         private readonly IChecksumCalculator _checksumCalculator;
         private readonly IFileSystemProvider _fileSystemProvider;
@@ -15,6 +15,12 @@ namespace DesignPatterns_HW3.Visitor
         {
             _checksumCalculator = checksumCalculator;
             _fileSystemProvider = fileSystemProvider;
+        }
+
+        public override void Attach(IObserver observer)
+        {
+            _checksumCalculator.Attach(observer);
+            base.Attach(observer);
         }
 
         public void Visit(File file)

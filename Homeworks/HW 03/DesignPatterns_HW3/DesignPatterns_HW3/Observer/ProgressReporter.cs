@@ -1,4 +1,6 @@
-﻿using DesignPatterns_HW3.Common;
+﻿using DesignPatterns_HW3.ChecksuCalculator;
+using DesignPatterns_HW3.Common;
+using DesignPatterns_HW3.Visitor;
 
 namespace DesignPatterns_HW3.Observer
 {
@@ -14,7 +16,18 @@ namespace DesignPatterns_HW3.Observer
 
         public void Update(IObservable sender, FileMessage message)
         {
-            streamWriter.WriteLine($"Processing {message.FileName}");
+            if(sender is IChecksumCalculator)
+            {
+                streamWriter.WriteLine($"Processing {message.FileName} - {message.Size}b");
+            }
+            else if(sender is HashStreamWriterVisitor)
+            {
+                streamWriter.WriteLine($"Processing {message.FileName}");
+            }
+            else
+            {
+                throw new ArgumentException("Invalid sender type");
+            }
         }
     } 
 }

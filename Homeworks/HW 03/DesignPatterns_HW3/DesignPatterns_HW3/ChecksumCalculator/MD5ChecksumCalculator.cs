@@ -1,37 +1,30 @@
-﻿using System.Drawing;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
+
+using DesignPatterns_HW3.Observer;
 
 namespace DesignPatterns_HW3.ChecksuCalculator
 {
-    public class MD5ChecksumCalculator : IChecksumCalculator
+    public class MD5ChecksumCalculator : BaseObservable, IChecksumCalculator
     {
+        // TODO: maybe reuse with hash algorithm
         public string Calculate(Stream stream)
         {
             using var md5 = MD5.Create();
-            var checksum = md5.ComputeHash(stream);
-            stream.Position = 0;
-            Console.WriteLine(CalculateWithBlocks(stream));
-            return BitConverter.ToString(checksum).Replace("-", string.Empty).ToLower();
+
+            return Calculate(md5, stream);
         }
 
-        public string CalculateWithBlocks(Stream stream)
+        private string Calculate(HashAlgorithm hashAlgorithm, Stream stream)
         {
-            using var md5 = MD5.Create();
-
-            var buffer = new byte[1024];
+            var buffer = new byte[4096];
             var bytesRead = 0;
             while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                md5.TransformBlock(buffer, 0, bytesRead, buffer, 0);
+                hashAlgorithm.TransformBlock(buffer, 0, bytesRead, buffer, 0);
+                Notify(this, new FileMessage("Processed bytes", (ulong)bytesRead));
             }
-            md5.TransformFinalBlock(buffer, 0, bytesRead);
-            return ToStringChecksum(md5.Hash);
-        }
-
-        // TODO: maybe move
-        public string ToStringChecksum(byte[] checksum)
-        {
-            return BitConverter.ToString(checksum).Replace("-", string.Empty).ToLower();
+            hashAlgorithm.TransformFinalBlock(buffer, 0, bytesRead);
+            return BitConverter.ToString(hashAlgorithm.Hash).Replace("-", string.Empty).ToLower();
         }
     }
 }

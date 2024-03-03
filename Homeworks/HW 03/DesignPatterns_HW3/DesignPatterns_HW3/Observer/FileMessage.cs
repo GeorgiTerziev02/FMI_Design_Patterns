@@ -1,5 +1,6 @@
 ﻿namespace DesignPatterns_HW3.Observer
 {
+    // TODO: refactor
     public class FileMessage
     {
         public FileMessage(string fileName, ulong size)
