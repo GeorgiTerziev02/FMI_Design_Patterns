@@ -10,7 +10,7 @@ namespace DesignPatterns_HW3.FileSystem
             Children = children;
         }
 
-        public ICollection<IFileSystemEntity> Children { get; }
+        public ICollection<IFileSystemEntity> Children { get; set; }
 
         public override void Accept(IFileSystemEntityVisitor visitor)
         {

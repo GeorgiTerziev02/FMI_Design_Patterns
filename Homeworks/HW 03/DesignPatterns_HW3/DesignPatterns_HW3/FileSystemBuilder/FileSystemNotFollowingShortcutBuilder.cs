@@ -8,8 +8,7 @@ namespace DesignPatterns_HW3.FileSystemBuilder
     {
         private readonly IFileSystemProvider _fileSystemProvider;
 
-        public FileSystemNotFollowingShortcutBuilder(
-            IFileSystemProvider fileSystemProvider)
+        public FileSystemNotFollowingShortcutBuilder(IFileSystemProvider fileSystemProvider)
         {
             _fileSystemProvider = fileSystemProvider;
         }

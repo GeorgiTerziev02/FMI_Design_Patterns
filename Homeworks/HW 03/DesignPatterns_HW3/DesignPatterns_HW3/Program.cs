@@ -1,4 +1,7 @@
-﻿using DesignPatterns_HW3.ChecksuCalculator;
+﻿using System.Text;
+
+using DesignPatterns_HW3.ChecksuCalculator;
+using DesignPatterns_HW3.ChecksumCalculator;
 using DesignPatterns_HW3.FileSystemBuilder;
 using DesignPatterns_HW3.Observer;
 using DesignPatterns_HW3.Visitor;
@@ -13,16 +16,23 @@ namespace DesignPatterns_HW3
             Console.WriteLine("Enter path to file/folder: ");
             //var path = Console.ReadLine();
 
-            var path = "../../../../HashTestFolder";
-            var singleFilePath = "../../../../HashTestFolder/TestFile1.txt";
-            var shortcutPath = "../../../../HashTestFolder/EndlessRecursion/ShortcutToRoot.lnk";
+            var path = "..\\..\\..\\..\\HashTestFolder";
+            var singleFilePath = "..\\..\\..\\..\\HashTestFolder\\TestFile1.txt";
 
+            Console.WriteLine("Enter hash algorithm");
+            //var algorithm = Console.ReadLine();
+            var algorithm = "MD5";
+            var checksumCalculator = ChecksumCalculatorFactory.Create(algorithm);
 
-            //var result = new FileInfo(shortcutPath); 
-
-            var checksumCalculator = new MD5ChecksumCalculator();
             var fileSystemProvider = new FileSystemProvider.FileSystemProvider();
-            var fileSystemBuilder = new FileSystemNotFollowingShortcutBuilder(fileSystemProvider);
+
+            Console.WriteLine("Do you want to follow links? y/n");
+            var response = Console.ReadLine();
+
+            IFileSystemBuilder fileSystemBuilder = response == "y"
+                ? new FileSystemFollowingShortcutsBuilder(fileSystemProvider)
+                : new FileSystemNotFollowingShortcutBuilder(fileSystemProvider);
+
 
             var result1 = fileSystemBuilder.Build(path);
             var result2 = fileSystemBuilder.Build(singleFilePath);

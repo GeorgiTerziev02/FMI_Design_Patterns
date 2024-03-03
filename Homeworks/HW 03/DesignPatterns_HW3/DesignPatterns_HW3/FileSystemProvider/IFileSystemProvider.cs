@@ -11,5 +11,7 @@
         ulong GetFileSize(string path);
 
         FileStream OpenFile(string path, FileMode mode);
+
+        bool IsShortcut(string path, out string target);
     }
 }
