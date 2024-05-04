@@ -10,7 +10,7 @@ namespace DesignPatterns_HW3.FileSystem
             Children = children;
         }
 
-        public ICollection<IFileSystemEntity> Children { get; set; }
+        public ICollection<IFileSystemEntity> Children { get; private set; }
 
         public void AddChild(IFileSystemEntity child)
         {
