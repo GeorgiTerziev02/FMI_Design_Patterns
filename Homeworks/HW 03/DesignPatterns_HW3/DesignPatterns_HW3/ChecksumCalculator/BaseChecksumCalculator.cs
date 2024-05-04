@@ -13,6 +13,7 @@ namespace DesignPatterns_HW3.ChecksumCalculator
             return Calculate(hashAlogithm, stream);
         }
 
+        // Template method for getting the hash algorithm
         protected abstract HashAlgorithm GetHashAlgorithm();
 
         private string Calculate(HashAlgorithm hashAlgorithm, Stream stream)

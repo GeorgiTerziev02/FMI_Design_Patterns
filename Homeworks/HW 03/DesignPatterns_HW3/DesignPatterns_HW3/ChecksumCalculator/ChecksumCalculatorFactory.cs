@@ -9,6 +9,8 @@ namespace DesignPatterns_HW3.ChecksumCalculator
             switch (type.ToLower()) {
                 case "md5":
                     return new MD5ChecksumCalculator();
+                case "sha256":
+                    return new SHA256ChecksumCalculator();
                 default:
                     throw new ArgumentException("Invalid checksum type", nameof(type));
             }

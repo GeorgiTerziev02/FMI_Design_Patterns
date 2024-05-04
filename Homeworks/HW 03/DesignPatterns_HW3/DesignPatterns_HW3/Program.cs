@@ -1,7 +1,4 @@
-﻿using System.Text;
-
-using DesignPatterns_HW3.ChecksuCalculator;
-using DesignPatterns_HW3.ChecksumCalculator;
+﻿using DesignPatterns_HW3.ChecksumCalculator;
 using DesignPatterns_HW3.FileSystemBuilder;
 using DesignPatterns_HW3.Observer;
 using DesignPatterns_HW3.Visitor;
