@@ -10,11 +10,9 @@ namespace DesignPatterns_HW3.FileSystem
             Size = size;
         }
 
-        // Needed to add getters and setters to all props
-        // because of the cycling detection...
-        public string RelativePath { get; set; }
+        public string RelativePath { get; }
 
-        public virtual ulong Size { get; set; }
+        public virtual ulong Size { get; protected set; }
 
         public abstract void Accept(IFileSystemEntityVisitor visitor);
     }

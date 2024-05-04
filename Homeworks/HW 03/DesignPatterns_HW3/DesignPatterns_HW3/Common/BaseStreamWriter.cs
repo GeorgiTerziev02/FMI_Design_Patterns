@@ -18,7 +18,6 @@
         {
             streamWriter.Dispose();
             stream.Dispose();
-
             GC.SuppressFinalize(this);
         }
 

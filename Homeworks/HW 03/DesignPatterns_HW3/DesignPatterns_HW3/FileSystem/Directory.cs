@@ -12,6 +12,12 @@ namespace DesignPatterns_HW3.FileSystem
 
         public ICollection<IFileSystemEntity> Children { get; set; }
 
+        public void AddChild(IFileSystemEntity child)
+        {
+            Size += child.Size;
+            Children.Add(child);
+        }
+
         public override void Accept(IFileSystemEntityVisitor visitor)
         {
             visitor.Visit(this);

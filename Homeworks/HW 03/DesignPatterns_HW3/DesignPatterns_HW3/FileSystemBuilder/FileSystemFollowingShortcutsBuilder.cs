@@ -43,8 +43,7 @@ namespace DesignPatterns_HW3.FileSystemBuilder
                 foreach (var childPath in _fileSystemProvider.GetFileSystemEntries(path))
                 {
                     var childEntity = Build(childPath);
-                    directory.Size += childEntity.Size;
-                    directory.Children.Add(childEntity);
+                    directory.AddChild(childEntity);
                 }
 
                 return directory;
