@@ -3,7 +3,7 @@
 namespace DesignPatterns_HW3.Common
 {
     // No multiple inheritance in C#...
-    public class BaseObservableStreamWriter : BaseObservable, IDisposable
+    public abstract class BaseObservableStreamWriter : BaseObservable, IDisposable
     {
         protected readonly Stream stream;
         protected readonly StreamWriter streamWriter;

@@ -2,9 +2,14 @@
 
 namespace DesignPatterns_HW3.ChecksumCalculator
 {
-    public static class ChecksumCalculatorFactory
+    public interface IChecksumCalculatorFacory
     {
-        public static IChecksumCalculator Create(string type)
+        IChecksumCalculator Create(string type);
+    }
+
+    public class ChecksumCalculatorFactory : IChecksumCalculatorFacory
+    {
+        public IChecksumCalculator Create(string type)
         {
             switch (type.ToLower()) {
                 case "md5":

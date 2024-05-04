@@ -19,7 +19,8 @@ namespace DesignPatterns_HW3
             Console.WriteLine("Enter hash algorithm");
             //var algorithm = Console.ReadLine();
             var algorithm = "MD5";
-            var checksumCalculator = ChecksumCalculatorFactory.Create(algorithm);
+            var checksumCalculatorFactory = new ChecksumCalculatorFactory();
+            var checksumCalculator = checksumCalculatorFactory.Create(algorithm);
 
             var fileSystemProvider = new FileSystemProvider.FileSystemProvider();
 
