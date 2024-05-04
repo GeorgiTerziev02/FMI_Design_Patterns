@@ -10,7 +10,7 @@ namespace DesignPatterns_HW3.Observer
     {
         void StartTimer(ulong expectedTotalBytes);
 
-        ulong EndTimer();
+        long EndTimer();
     }
 
     public class ProgressReporter : BaseStreamWriter, IProgressReporter
@@ -22,16 +22,25 @@ namespace DesignPatterns_HW3.Observer
         public ProgressReporter(Stream outputStream) : base(outputStream)
         { }
 
-        public ulong EndTimer()
+        /// <summary>
+        /// Stops the timer
+        /// </summary>
+        /// <returns>Returns taken seconds</returns>
+        public long EndTimer()
         {
             _stopwatch.Stop();
-            return (ulong)_stopwatch.ElapsedMilliseconds / 1000;
+            return _stopwatch.ElapsedMilliseconds;
         }
 
+        /// <summary>
+        /// Starts the timer
+        /// </summary>
+        /// <param name="expectedTotalBytes">Bytes to process</param>
         public void StartTimer(ulong expectedTotalBytes)
         {
             _expectedBytesToRead = expectedTotalBytes;
             _readBytes = 0;
+            _stopwatch.Reset();
             _stopwatch.Start();
         }
 
@@ -39,9 +48,8 @@ namespace DesignPatterns_HW3.Observer
         {
             if (sender is IChecksumCalculator)
             {
-                // TODO: total from file and chunk for the percentage
-                streamWriter.Write($"\rProcessing {message.FileName} - {message.Size}b");
                 _readBytes += message.Size;
+                streamWriter.Write($"\rProcessing {message.Size}b, total processed {_readBytes}b");
                 PrintPercentage();
             }
             else if(sender is HashStreamWriterVisitor)
@@ -58,7 +66,7 @@ namespace DesignPatterns_HW3.Observer
         private void PrintPercentage()
         {
             var percentage = (double)_readBytes / (double)_expectedBytesToRead * 100;
-            streamWriter.Write($" Percentage of all {percentage:F2}%");
+            streamWriter.Write($" Percentage of all {percentage:F6}%");
         }
     } 
 }

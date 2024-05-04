@@ -49,12 +49,15 @@ namespace DesignPatterns_HW3
             Console.WriteLine("First visit");
             progressReporter.StartTimer(result1.Size);
             result1.Accept(visitor2);
-            progressReporter.EndTimer();
+            var takenTime1 = progressReporter.EndTimer();
+            Console.WriteLine($"Time taken {takenTime1}ms");
 
             Console.WriteLine("Second visit");
             progressReporter.StartTimer(result2.Size);
             result2.Accept(visitor2);
             progressReporter.EndTimer();
+            var takenTime2 = progressReporter.EndTimer();
+            Console.WriteLine($"Time taken {takenTime2}ms");
         }
 
         public static void GenerateOneGigabyteFile()
