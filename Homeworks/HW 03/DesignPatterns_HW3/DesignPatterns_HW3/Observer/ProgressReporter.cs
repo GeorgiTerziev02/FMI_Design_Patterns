@@ -49,12 +49,17 @@ namespace DesignPatterns_HW3.Observer
             if (sender is IChecksumCalculator)
             {
                 _readBytes += message.Size;
-                streamWriter.Write($"\rProcessing {message.Size}b, total processed {_readBytes}b");
+                streamWriter.Write($"\rTotal processed {_readBytes}b");
                 PrintPercentage();
             }
             else if(sender is HashStreamWriterVisitor)
             {
                 streamWriter.WriteLine($"Processing {message.FileName} - with length {message.Size}b");
+                if(message.AlreadyProcessed)
+                {
+                    _readBytes += message.Size;
+                    PrintPercentage();
+                }
             }
             else
             {

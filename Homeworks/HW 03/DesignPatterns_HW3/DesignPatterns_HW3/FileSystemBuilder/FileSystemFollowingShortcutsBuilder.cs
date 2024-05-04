@@ -27,7 +27,7 @@ namespace DesignPatterns_HW3.FileSystemBuilder
                 if (_fileSystemProvider.IsShortcut(path, out var targetPath))
                 {
                     var shortcut = new Shortcut(path, null) ;
-                    _visitedSystemEntities.Add(path, new Shortcut(path, shortcut));
+                    _visitedSystemEntities.Add(path, shortcut);
                     shortcut.Target = Build(targetPath);
                     return shortcut;
                 }

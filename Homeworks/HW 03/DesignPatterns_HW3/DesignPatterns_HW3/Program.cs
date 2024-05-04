@@ -52,6 +52,7 @@ namespace DesignPatterns_HW3
             var takenTime1 = progressReporter.EndTimer();
             Console.WriteLine($"Time taken {takenTime1}ms");
 
+            visitor2.Reset();
             Console.WriteLine("Second visit");
             progressReporter.StartTimer(result2.Size);
             result2.Accept(visitor2);

@@ -46,25 +46,23 @@ namespace DesignPatterns_HW3.Visitor
         {
             if (_visitedEntities.Contains(file.RelativePath))
             {
+                Notify(this, new FileMessage(file.RelativePath, file.Size, true));
                 return;
             }
 
             _visitedEntities.Add(file.RelativePath);
-            // TODO: Implement
-            // _checksumCalculator.Calculate(file);
 
             Notify(this, new FileMessage(file.RelativePath, file.Size));
-            // JORO: is this a relative path??
             try
             {
                 using var stream = _fileSystemProvider.OpenFile(file.RelativePath, FileMode.Open);
                 var checksum = _checksumCalculator.Calculate(stream);
-                streamWriter.WriteLine($"\rChecksum - {checksum}");
                 streamWriter.WriteLine();
+                streamWriter.WriteLine($"Checksum - {checksum}");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                streamWriter.WriteLine("Error accessing file");
+                streamWriter.WriteLine($"Error accessing file {ex.Message}");
             }
         }
 
@@ -82,6 +80,11 @@ namespace DesignPatterns_HW3.Visitor
             {
                 file.Accept(this);
             }
+        }
+
+        public void Reset()
+        {
+            _visitedEntities.Clear();
         }
     }
 }

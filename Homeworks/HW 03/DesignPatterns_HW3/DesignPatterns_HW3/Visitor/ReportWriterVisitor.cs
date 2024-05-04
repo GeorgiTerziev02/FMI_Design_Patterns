@@ -35,10 +35,15 @@ namespace DesignPatterns_HW3.Visitor
 
             streamWriter.WriteLine($"We will file visit: {directory.RelativePath} - {directory.Size}b");
 
-            foreach (var file in directory.Children)
+            foreach (var child in directory.Children)
             {
-                file.Accept(this);
+                child.Accept(this);
             }
+        }
+
+        public void Reset()
+        {
+            _visitedEntities.Clear();
         }
     }
 }

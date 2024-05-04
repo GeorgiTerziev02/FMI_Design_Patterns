@@ -5,5 +5,7 @@
         void Visit(File file);
         
         void Visit(Directory directory);
+
+        void Reset();
     }
 }
