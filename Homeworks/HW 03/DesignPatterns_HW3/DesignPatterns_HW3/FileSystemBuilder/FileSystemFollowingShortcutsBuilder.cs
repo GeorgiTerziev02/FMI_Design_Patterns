@@ -1,13 +1,8 @@
-﻿using System.Linq;
-using System.Text;
-
-using DesignPatterns_HW3.FileSystem;
+﻿using DesignPatterns_HW3.FileSystem;
 using DesignPatterns_HW3.FileSystemProvider;
 
 namespace DesignPatterns_HW3.FileSystemBuilder
 {
-
-    // TODO: better name
     // TODO: make it recognise both symlinks and shortcuts
     public class FileSystemFollowingShortcutsBuilder : IFileSystemBuilder
     {

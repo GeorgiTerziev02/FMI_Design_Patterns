@@ -60,6 +60,7 @@ namespace DesignPatterns_HW3.Visitor
                 using var stream = _fileSystemProvider.OpenFile(file.RelativePath, FileMode.Open);
                 var checksum = _checksumCalculator.Calculate(stream);
                 streamWriter.WriteLine($"\rChecksum - {checksum}");
+                streamWriter.WriteLine();
             }
             catch (Exception)
             {

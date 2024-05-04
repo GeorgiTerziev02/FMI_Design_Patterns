@@ -3,7 +3,6 @@ using DesignPatterns_HW3.FileSystemProvider;
 
 namespace DesignPatterns_HW3.FileSystemBuilder
 {
-    // TODO: better name
     public class FileSystemNotFollowingShortcutBuilder : IFileSystemBuilder
     {
         private readonly IFileSystemProvider _fileSystemProvider;

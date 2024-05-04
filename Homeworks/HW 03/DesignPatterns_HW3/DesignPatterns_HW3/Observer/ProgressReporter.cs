@@ -55,7 +55,6 @@ namespace DesignPatterns_HW3.Observer
             else if(sender is HashStreamWriterVisitor)
             {
                 streamWriter.WriteLine($"Processing {message.FileName} - with length {message.Size}b");
-                PrintPercentage();
             }
             else
             {
@@ -66,7 +65,7 @@ namespace DesignPatterns_HW3.Observer
         private void PrintPercentage()
         {
             var percentage = (double)_readBytes / (double)_expectedBytesToRead * 100;
-            streamWriter.Write($" Percentage of all {percentage:F6}%");
+            streamWriter.Write($" Processed of all {percentage:F6}%");
         }
     } 
 }
