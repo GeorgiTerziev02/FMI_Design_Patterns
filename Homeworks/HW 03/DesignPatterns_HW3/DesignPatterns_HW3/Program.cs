@@ -35,7 +35,7 @@ namespace DesignPatterns_HW3
             var result2 = fileSystemBuilder.Build(singleFilePath);
 
             var visitor1 = new ReportWriterVisitor(Console.OpenStandardOutput());
-            Console.WriteLine("First visitor:");
+            Console.WriteLine("First visitor - normal reporter:");
             Console.WriteLine("First visit");
             result1.Accept(visitor1);
             Console.WriteLine(value: "Second visit");
@@ -45,7 +45,7 @@ namespace DesignPatterns_HW3
             var progressReporter = new ProgressReporter(Console.OpenStandardOutput());
             visitor2.Attach(progressReporter);
             Console.WriteLine();
-            Console.WriteLine("Second visitor:");
+            Console.WriteLine("Second visitor - hash stream writer:");
             Console.WriteLine("First visit");
             progressReporter.StartTimer(result1.Size);
             result1.Accept(visitor2);
