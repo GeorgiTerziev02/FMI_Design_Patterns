@@ -36,9 +36,7 @@ namespace DesignPatterns_HW3.Reporter
 
         public ProgressSnapshot GetSnapshot()
         {
-            var ms = ElapsedMilliseconds;
-            _stopwatch.Reset();
-            return new ProgressSnapshot(_expectedBytesToRead, _readBytes, ms);
+            return new ProgressSnapshot(_expectedBytesToRead, _readBytes, ElapsedMilliseconds);
         }
 
         public void Pause()
@@ -51,6 +49,7 @@ namespace DesignPatterns_HW3.Reporter
             _expectedBytesToRead = snapshot.ExpectedBytesToRead;
             _readBytes = snapshot.ReadBytes;
             _initialElapsedMilliseconds = snapshot.ElapsedMilliseconds;
+            _stopwatch.Reset();
             _stopwatch.Start();
         }
 
