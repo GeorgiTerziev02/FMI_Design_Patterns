@@ -15,7 +15,7 @@ namespace DesignPatterns_HW3.Observer
 
     public class ProgressReporter : BaseStreamWriter, IProgressReporter
     {
-        private Stopwatch _stopwatch = new Stopwatch();
+        private readonly Stopwatch _stopwatch = new();
         private ulong _expectedBytesToRead = 0;
         private ulong _readBytes = 0;
 

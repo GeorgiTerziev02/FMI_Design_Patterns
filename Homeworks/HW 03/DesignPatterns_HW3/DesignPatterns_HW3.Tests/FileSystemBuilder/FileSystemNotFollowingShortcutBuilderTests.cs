@@ -27,24 +27,32 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
             var fileSystem = fileSystemNotFollowingShortcutBuilder.Build(TEST_DIRECTORY_PATH);
 
             // Assert
-            Assert.That(fileSystem, Is.Not.Null);
-            Assert.That(fileSystem, Is.InstanceOf<Directory>());
-            Assert.That(fileSystem.RelativePath, Is.EqualTo(TEST_DIRECTORY_PATH));
-            Assert.That(fileSystem.Size, Is.EqualTo(5370));
+            Assert.Multiple(() =>
+            {
+                Assert.That(fileSystem, Is.Not.Null);
+                Assert.That(fileSystem, Is.InstanceOf<Directory>());
+                Assert.That(fileSystem.RelativePath, Is.EqualTo(TEST_DIRECTORY_PATH));
+                Assert.That(fileSystem.Size, Is.EqualTo(5370));
+            });
 
             var directory = fileSystem as Directory;
-            Assert.That(directory.Children.Count, Is.EqualTo(3));
-            Assert.That(directory.Children.Any(x => x is Shortcut), Is.False);
+            Assert.Multiple(() =>
+            {
+                Assert.That(directory!.Children, Has.Count.EqualTo(3));
+                Assert.That(directory.Children.Any(x => x is Shortcut), Is.False);
+            });
 
-            Directory? childDirectory = directory.Children
+            Directory childDirectory = directory!.Children
                 .Where(x => x is Directory)
                 .Select(x => x as Directory)
-                .FirstOrDefault();
-
-            Assert.That(childDirectory, Is.Not.Null);
-            Assert.That(childDirectory.Size, Is.EqualTo(2526));
-            Assert.That(childDirectory.Children.Count, Is.EqualTo(3));
-            Assert.That(childDirectory.Children.Any(x => x is Shortcut), Is.False);
+                .FirstOrDefault()!;
+            Assert.Multiple(() =>
+            {
+                Assert.That(childDirectory, Is.Not.Null);
+                Assert.That(childDirectory.Size, Is.EqualTo(2526));
+                Assert.That(childDirectory.Children, Has.Count.EqualTo(3));
+                Assert.That(childDirectory.Children.Any(x => x is Shortcut), Is.False);
+            });
         }
 
         [Test]
@@ -57,10 +65,13 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
             var fileSystem = fileSystemNotFollowingShortcutBuilder.Build(path);
 
             // Assert
-            Assert.That(fileSystem, Is.Not.Null);
-            Assert.That(fileSystem, Is.InstanceOf<File>());
-            Assert.That(fileSystem.RelativePath, Is.EqualTo(path));
-            Assert.That(fileSystem.Size, Is.EqualTo(3));
+            Assert.Multiple(() =>
+            {
+                Assert.That(fileSystem, Is.Not.Null);
+                Assert.That(fileSystem, Is.InstanceOf<File>());
+                Assert.That(fileSystem.RelativePath, Is.EqualTo(path));
+                Assert.That(fileSystem.Size, Is.EqualTo(3));
+            });
         }
 
         [Test]

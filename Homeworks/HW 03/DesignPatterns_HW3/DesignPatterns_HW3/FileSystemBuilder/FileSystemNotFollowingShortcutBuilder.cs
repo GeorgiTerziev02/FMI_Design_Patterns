@@ -22,7 +22,7 @@ namespace DesignPatterns_HW3.FileSystemBuilder
 
             if(_fileSystemProvider.IsDirectory(path))
             {
-                var directory = new Directory(path, 0, new List<IFileSystemEntity>());
+                var directory = new Directory(path, 0, []);
                 foreach (var childPath in _fileSystemProvider.GetFileSystemEntries(path))
                 {
                     var childEntity = Build(childPath);

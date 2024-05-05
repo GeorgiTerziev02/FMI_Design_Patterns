@@ -11,14 +11,12 @@ namespace DesignPatterns_HW3.ChecksumCalculator
     {
         public IChecksumCalculator Create(string type)
         {
-            switch (type.ToLower()) {
-                case "md5":
-                    return new MD5ChecksumCalculator();
-                case "sha256":
-                    return new SHA256ChecksumCalculator();
-                default:
-                    throw new ArgumentException("Invalid checksum type", nameof(type));
-            }
+            return type.ToLower() switch
+            {
+                "md5" => new MD5ChecksumCalculator(),
+                "sha256" => new SHA256ChecksumCalculator(),
+                _ => throw new ArgumentException("Invalid checksum type", nameof(type)),
+            };
         }
     }
 }

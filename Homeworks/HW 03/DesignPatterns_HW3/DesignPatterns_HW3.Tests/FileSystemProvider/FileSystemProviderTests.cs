@@ -35,9 +35,12 @@
             var result = fileSystemProvider.GetFileSystemEntries(path);
 
             // Assert
-            Assert.That(result.Count(), Is.EqualTo(2));
-            Assert.That(result, Contains.Item(TEST_DIRECTORY_PATH + "Directory\\f1.txt"));
-            Assert.That(result, Contains.Item(TEST_DIRECTORY_PATH + "Directory\\f2.txt"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result.Count(), Is.EqualTo(2));
+                Assert.That(result, Contains.Item(TEST_DIRECTORY_PATH + "Directory\\f1.txt"));
+                Assert.That(result, Contains.Item(TEST_DIRECTORY_PATH + "Directory\\f2.txt"));
+            });
         }
 
         [Test]
@@ -76,7 +79,7 @@
             var result = fileSystemProvider.IsDirectory(path);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.That(result, Is.True);
         }
 
         [Test]
@@ -89,7 +92,7 @@
             var result = fileSystemProvider.IsDirectory(path);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.That(result, Is.False);
         }
 
         [Test]
@@ -116,8 +119,11 @@
             var result = fileSystemProvider.IsShortcut(path, out var target);
 
             // Assert
-            Assert.That(result, Is.True);
-            Assert.That(target, Is.EqualTo(TEST_DIRECTORY_PATH + "file.txt"));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.True);
+                Assert.That(target, Is.EqualTo(TEST_DIRECTORY_PATH + "file.txt"));
+            });
         }
 
         [Test]
@@ -130,8 +136,11 @@
             var result = fileSystemProvider.IsShortcut(path, out var target);
 
             // Assert
-            Assert.That(result, Is.False);
-            Assert.That(target, Is.EqualTo(""));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.False);
+                Assert.That(target, Is.EqualTo(""));
+            });
         }
     }
 }

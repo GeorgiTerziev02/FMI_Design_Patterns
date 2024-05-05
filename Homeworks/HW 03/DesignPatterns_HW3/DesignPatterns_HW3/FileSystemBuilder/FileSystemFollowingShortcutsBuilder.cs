@@ -6,7 +6,7 @@ namespace DesignPatterns_HW3.FileSystemBuilder
     // TODO: make it recognise both symlinks and shortcuts
     public class FileSystemFollowingShortcutsBuilder : IFileSystemBuilder
     {
-        private Dictionary<string, IFileSystemEntity> _visitedSystemEntities = new Dictionary<string, IFileSystemEntity>();
+        private readonly Dictionary<string, IFileSystemEntity> _visitedSystemEntities = [];
 
         private readonly IFileSystemProvider _fileSystemProvider;
 
@@ -38,7 +38,7 @@ namespace DesignPatterns_HW3.FileSystemBuilder
 
             if (_fileSystemProvider.IsDirectory(path))
             {
-                var directory = new Directory(path, 0, new List<IFileSystemEntity>());
+                var directory = new Directory(path, 0, []);
                 _visitedSystemEntities.Add(path, directory);
                 foreach (var childPath in _fileSystemProvider.GetFileSystemEntries(path))
                 {

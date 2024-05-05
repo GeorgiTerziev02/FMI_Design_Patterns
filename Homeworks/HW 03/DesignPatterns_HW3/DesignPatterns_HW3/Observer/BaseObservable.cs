@@ -2,7 +2,7 @@
 {
     public abstract class BaseObservable : IObservable
     {
-        private readonly List<IObserver> _observers = new List<IObserver>();
+        private readonly List<IObserver> _observers = new();
 
         public virtual void Attach(IObserver observer)
         {
