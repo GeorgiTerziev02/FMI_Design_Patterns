@@ -3,26 +3,16 @@ using DesignPatterns_HW3.Common;
 using DesignPatterns_HW3.FileSystem;
 using DesignPatterns_HW3.FileSystemProvider;
 using DesignPatterns_HW3.Observer;
+using DesignPatterns_HW3.Visitor.Memento;
 
 namespace DesignPatterns_HW3.Visitor
 {
-    public class Snapshot
-    {
-        public Snapshot(IEnumerable<string> visited, IFileSystemEntity root)
-        {
-            Visited = visited.ToHashSet();
-            Root = root;
-        }
-
-        public HashSet<string> Visited { get; }
-
-        public IFileSystemEntity Root { get; }
-    }
-
-    public class HashStreamWriterVisitor : BaseObservableStreamWriter, IFileSystemEntityVisitor
+    public class HashStreamWriterVisitor : BaseObservableStreamWriter, IFileSystemEntityMementoVisitor
     {
         // No multiple inheritance
         private readonly HashSet<string> _visitedEntities = new();
+        private IFileSystemEntity? _root = null;
+
         private readonly IChecksumCalculator _checksumCalculator;
         private readonly IFileSystemProvider _fileSystemProvider;
 
@@ -36,6 +26,12 @@ namespace DesignPatterns_HW3.Visitor
             _fileSystemProvider = fileSystemProvider;
         }
 
+        /// <summary>
+        /// On request for stop => set to true
+        /// When is becomes false => it is ready to take a snapshot
+        /// </summary>
+        public bool Stopping { get; private set; } = false;
+
         public override void Attach(IObserver observer)
         {
             _checksumCalculator.Attach(observer);
@@ -44,6 +40,8 @@ namespace DesignPatterns_HW3.Visitor
 
         public void Visit(File file)
         {
+            // if the root is file, we don't need to set
+            // it also does not bother us for pausing logic
             if (_visitedEntities.Contains(file.RelativePath))
             {
                 Notify(this, new FileMessage(file.RelativePath, file.Size, true));
@@ -68,6 +66,11 @@ namespace DesignPatterns_HW3.Visitor
 
         public void Visit(Directory directory)
         {
+            if(_root == null)
+            {
+                _root = directory;
+            }
+
             if (_visitedEntities.Contains(directory.RelativePath))
             {
                 return;
@@ -79,12 +82,40 @@ namespace DesignPatterns_HW3.Visitor
             foreach (var file in directory.Children)
             {
                 file.Accept(this);
+                if(Stopping)
+                {
+                    _visitedEntities.Remove(directory.RelativePath);
+                    if(directory == _root) // if we are at the root, this is the last step of the visiting
+                    {
+                        Stopping = false;
+                    }
+                    return;
+                }
             }
         }
 
+        // Maybe move this inside visit methods, when we reach the root again, we can reset the visited entities
         public void Reset()
         {
             _visitedEntities.Clear();
+        }
+
+        public ProcessedFilesSnapshot GetSnapshot()
+        {
+            return new ProcessedFilesSnapshot(_visitedEntities, _root);
+        }
+
+        public void Restore(ProcessedFilesSnapshot snapshot)
+        {
+            _visitedEntities.Clear();
+            _visitedEntities.UnionWith(snapshot.Visited);
+            _root = snapshot.Root;
+            _root.Accept(this);
+        }
+
+        public void Pause()
+        {
+            Stopping = true;
         }
     }
 }

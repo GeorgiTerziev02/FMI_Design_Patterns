@@ -1,6 +1,6 @@
 ﻿using DesignPatterns_HW3.ChecksumCalculator;
 using DesignPatterns_HW3.FileSystemBuilder;
-using DesignPatterns_HW3.Observer;
+using DesignPatterns_HW3.Reporter;
 using DesignPatterns_HW3.Visitor;
 
 namespace DesignPatterns_HW3
@@ -43,6 +43,7 @@ namespace DesignPatterns_HW3
             result2.Accept(visitor1);
 
             var visitor2 = new HashStreamWriterVisitor(Console.OpenStandardOutput(), checksumCalculator, fileSystemProvider);
+
             var progressReporter = new ProgressReporter(Console.OpenStandardOutput());
             visitor2.Attach(progressReporter);
             Console.WriteLine();
