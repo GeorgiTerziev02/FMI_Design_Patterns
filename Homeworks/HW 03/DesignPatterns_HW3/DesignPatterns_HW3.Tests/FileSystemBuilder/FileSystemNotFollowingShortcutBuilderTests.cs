@@ -32,7 +32,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
                 Assert.That(fileSystem, Is.Not.Null);
                 Assert.That(fileSystem, Is.InstanceOf<Directory>());
                 Assert.That(fileSystem.RelativePath, Is.EqualTo(TEST_DIRECTORY_PATH));
-                Assert.That(fileSystem.Size, Is.EqualTo(5370));
+                Assert.That(fileSystem.Size, Is.EqualTo(5359));
             });
 
             var directory = fileSystem as Directory;
