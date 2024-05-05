@@ -22,8 +22,4 @@
     <ProjectReference Include="..\DesignPatterns_HW3\DesignPatterns_HW3.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="FileSystemBuilder\" />
-  </ItemGroup>
-
 </Project>
