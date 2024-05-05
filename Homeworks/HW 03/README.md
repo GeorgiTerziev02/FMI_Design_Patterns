@@ -1,3 +1,7 @@
+## Homework 3
+
+Task for this homework - File system checksum - HW3_Task.pdf
+
 ## Known issues
 
 - Currently works only for windows shortcuts
