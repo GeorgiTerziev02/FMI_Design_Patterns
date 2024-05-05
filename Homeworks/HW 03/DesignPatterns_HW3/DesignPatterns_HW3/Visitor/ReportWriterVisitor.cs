@@ -10,8 +10,6 @@ namespace DesignPatterns_HW3.Visitor
         public ReportWriterVisitor(Stream outputStream) : base(outputStream)
         { }
 
-        public ulong TotalBytesToVisit { get; set; }
-
         public void Visit(File file)
         {
             if (_visitedEntities.Contains(file.RelativePath))
