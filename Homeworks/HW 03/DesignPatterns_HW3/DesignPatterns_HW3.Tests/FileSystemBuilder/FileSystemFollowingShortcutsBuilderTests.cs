@@ -42,19 +42,19 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
                 Assert.That(directory.Children.Any(x => x is Shortcut), Is.True);
             });
 
-            var shortcut = directory!.Children
+            var fileShortcut = directory!.Children
                 .Where(x => x is Shortcut)
                 .Select(x => x as Shortcut)
                 .FirstOrDefault()!;
-            var expectedShortcutTarget = directory!.Children
+            var expectedFileShortcutTarget = directory!.Children
                 .Where(x => x.RelativePath.EndsWith("file.txt"))
                 .FirstOrDefault();
             Assert.Multiple(() =>
             {
-                Assert.That(shortcut, Is.Not.Null);
-                Assert.That(shortcut.Size, Is.EqualTo(2830));
-                Assert.That(shortcut.Target, Is.Not.Null);
-                Assert.That(shortcut.Target, Is.SameAs(expectedShortcutTarget));
+                Assert.That(fileShortcut, Is.Not.Null);
+                Assert.That(fileShortcut.Size, Is.EqualTo(2830));
+                Assert.That(fileShortcut.Target, Is.Not.Null);
+                Assert.That(fileShortcut.Target, Is.SameAs(expectedFileShortcutTarget));
             });
 
             Directory childDirectory = directory!.Children
@@ -68,6 +68,67 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
                 Assert.That(childDirectory.Children, Has.Count.EqualTo(3));
                 Assert.That(childDirectory.Children.Any(x => x is Shortcut), Is.True);
             });
+
+            var directoryShortcut = childDirectory!.Children
+                .Where(x => x is Shortcut)
+                .Select(x => x as Shortcut)
+                .FirstOrDefault()!;
+
+            Assert.That(directoryShortcut.Target, Is.SameAs(childDirectory));
+        }
+
+        [Test]
+        public void Build_ShouldReturnInstanceOfFile()
+        {
+            // Arrange
+            var path = TEST_DIRECTORY_PATH + "file.txt";
+
+            // Act
+            var fileSystem = fileSystemFollowingShortcutsBuilder.Build(path);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(fileSystem, Is.Not.Null);
+                Assert.That(fileSystem, Is.InstanceOf<File>());
+                Assert.That(fileSystem.RelativePath, Is.EqualTo(path));
+                Assert.That(fileSystem.Size, Is.EqualTo(3));
+            });
+        }
+
+        [Test]
+        public void Build_ShouldReturnInstanceOfShortcut()
+        {
+            // Arrange
+            var path = TEST_DIRECTORY_PATH + "file-shortcut.lnk";
+
+            // Act
+            var fileSystem = fileSystemFollowingShortcutsBuilder.Build(path);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(fileSystem, Is.Not.Null);
+                Assert.That(fileSystem, Is.InstanceOf<Shortcut>());
+                Assert.That(fileSystem.RelativePath, Is.EqualTo(path));
+                Assert.That(fileSystem.Size, Is.EqualTo(2830));
+                
+                var shortcut = fileSystem as Shortcut;
+                Assert.That(shortcut!.Size, Is.EqualTo(2830));
+                Assert.That(shortcut.Target, Is.Not.Null);
+                Assert.That(shortcut.Target, Is.InstanceOf<File>());
+            });
+        }
+
+        [Test]
+        public void Build_ShouldThrowArgumentExceptionWhenPathIsInvalid()
+        {
+            // Arrange
+            var path = TEST_DIRECTORY_PATH + "invalidPath";
+
+            // Act
+            // Assert
+            Assert.Throws<ArgumentException>(() => fileSystemFollowingShortcutsBuilder.Build(path));
         }
     }
 }
