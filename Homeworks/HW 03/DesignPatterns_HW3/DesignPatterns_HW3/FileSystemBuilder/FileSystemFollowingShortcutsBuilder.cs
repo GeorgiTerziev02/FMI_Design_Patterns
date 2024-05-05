@@ -24,15 +24,15 @@ namespace DesignPatterns_HW3.FileSystemBuilder
 
             if (_fileSystemProvider.IsFile(path))
             {
+                var fileSize = _fileSystemProvider.GetFileSize(path);
                 if (_fileSystemProvider.IsShortcut(path, out var targetPath))
                 {
-                    var shortcut = new Shortcut(path, null) ;
+                    var shortcut = new Shortcut(path, fileSize, null);
                     _visitedSystemEntities.Add(path, shortcut);
                     shortcut.Target = Build(targetPath);
                     return shortcut;
                 }
 
-                var fileSize = _fileSystemProvider.GetFileSize(path);
                 return AddToVisitedAndReturn(new File(path, fileSize));
             }
 

@@ -4,13 +4,11 @@ namespace DesignPatterns_HW3.FileSystem
 {
     public class Shortcut : BaseFileSystemEntity
     {
-        public Shortcut(string relativePath, IFileSystemEntity target)
-            : base("Shortcut to: " + relativePath, 0)
+        public Shortcut(string relativePath, ulong size, IFileSystemEntity target)
+            : base(relativePath, size)
         {
             Target = target;
         }
-
-        // public override ulong Size => Target.Size;
 
         public IFileSystemEntity Target { get; set; }
 
