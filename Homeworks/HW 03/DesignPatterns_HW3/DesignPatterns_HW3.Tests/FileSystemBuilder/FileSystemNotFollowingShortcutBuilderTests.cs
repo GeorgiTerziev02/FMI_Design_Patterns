@@ -6,7 +6,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
     [TestFixture]
     public class FileSystemNotFollowingShortcutBuilderTests
     {
-        private const string TEST_DIRECTORY_PATH = "..\\..\\..\\UnitTestFiles\\FileSystemBuilder\\";
+        private const string TEST_DIRECTORY_PATH = "..\\..\\..\\Resources\\Files\\FileSystemBuilder\\";
 
         private FileSystemNotFollowingShortcutBuilder fileSystemNotFollowingShortcutBuilder;
 
@@ -32,7 +32,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
                 Assert.That(fileSystem, Is.Not.Null);
                 Assert.That(fileSystem, Is.InstanceOf<Directory>());
                 Assert.That(fileSystem.RelativePath, Is.EqualTo(TEST_DIRECTORY_PATH));
-                Assert.That(fileSystem.Size, Is.EqualTo(5359));
+                Assert.That(fileSystem.Size, Is.EqualTo(5519));
             });
 
             var directory = fileSystem as Directory;
@@ -49,7 +49,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
             Assert.Multiple(() =>
             {
                 Assert.That(childDirectory, Is.Not.Null);
-                Assert.That(childDirectory.Size, Is.EqualTo(2526));
+                Assert.That(childDirectory.Size, Is.EqualTo(2604));
                 Assert.That(childDirectory.Children, Has.Count.EqualTo(3));
                 Assert.That(childDirectory.Children.Any(x => x is Shortcut), Is.False);
             });

@@ -6,7 +6,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
     [TestFixture]
     public class FileSystemFollowingShortcutsBuilderTests
     {
-        private const string TEST_DIRECTORY_PATH = "..\\..\\..\\UnitTestFiles\\FileSystemBuilder\\";
+        private const string TEST_DIRECTORY_PATH = "..\\..\\..\\Resources\\Files\\FileSystemBuilder\\";
 
         private FileSystemFollowingShortcutsBuilder fileSystemFollowingShortcutsBuilder;
 
@@ -32,7 +32,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
                 Assert.That(fileSystem, Is.Not.Null);
                 Assert.That(fileSystem, Is.InstanceOf<Directory>());
                 Assert.That(fileSystem.RelativePath, Is.EqualTo(TEST_DIRECTORY_PATH));
-                Assert.That(fileSystem.Size, Is.EqualTo(5359));
+                Assert.That(fileSystem.Size, Is.EqualTo(5519));
             });
 
             var directory = fileSystem as Directory;
@@ -52,7 +52,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
             Assert.Multiple(() =>
             {
                 Assert.That(fileShortcut, Is.Not.Null);
-                Assert.That(fileShortcut.Size, Is.EqualTo(2830));
+                Assert.That(fileShortcut.Size, Is.EqualTo(2912));
                 Assert.That(fileShortcut.Target, Is.Not.Null);
                 Assert.That(fileShortcut.Target, Is.SameAs(expectedFileShortcutTarget));
             });
@@ -64,7 +64,7 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
             Assert.Multiple(() =>
             {
                 Assert.That(childDirectory, Is.Not.Null);
-                Assert.That(childDirectory.Size, Is.EqualTo(2526));
+                Assert.That(childDirectory.Size, Is.EqualTo(2604));
                 Assert.That(childDirectory.Children, Has.Count.EqualTo(3));
                 Assert.That(childDirectory.Children.Any(x => x is Shortcut), Is.True);
             });
@@ -111,10 +111,10 @@ namespace DesignPatterns_HW3.Tests.FileSystemBuilder
                 Assert.That(fileSystem, Is.Not.Null);
                 Assert.That(fileSystem, Is.InstanceOf<Shortcut>());
                 Assert.That(fileSystem.RelativePath, Is.EqualTo(path));
-                Assert.That(fileSystem.Size, Is.EqualTo(2830));
+                Assert.That(fileSystem.Size, Is.EqualTo(2912));
                 
                 var shortcut = fileSystem as Shortcut;
-                Assert.That(shortcut!.Size, Is.EqualTo(2830));
+                Assert.That(shortcut!.Size, Is.EqualTo(2912));
                 Assert.That(shortcut.Target, Is.Not.Null);
                 Assert.That(shortcut.Target, Is.InstanceOf<File>());
             });

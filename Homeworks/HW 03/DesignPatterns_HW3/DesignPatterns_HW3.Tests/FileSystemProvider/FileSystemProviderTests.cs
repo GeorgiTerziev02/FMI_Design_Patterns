@@ -3,7 +3,7 @@
     [TestFixture]
     public class FileSystemProviderTests
     {
-        private const string TEST_DIRECTORY_PATH = "..\\..\\..\\UnitTestFiles\\FileSystemProvider\\";
+        private const string TEST_DIRECTORY_PATH = "..\\..\\..\\Resources\\Files\\FileSystemProvider\\";
         private DesignPatterns_HW3.FileSystemProvider.FileSystemProvider fileSystemProvider;
 
         [SetUp]
