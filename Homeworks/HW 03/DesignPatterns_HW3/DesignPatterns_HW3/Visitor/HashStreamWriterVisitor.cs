@@ -75,6 +75,7 @@ namespace DesignPatterns_HW3.Visitor
 
             if (_visitedEntities.Contains(directory.RelativePath))
             {
+                CheckIfFinished(directory);
                 return;
             }
 
@@ -87,16 +88,19 @@ namespace DesignPatterns_HW3.Visitor
                 if(Stopping)
                 {
                     _visitedEntities.Remove(directory.RelativePath);
-                    if(directory == _root) // if we are at the root, this is the last step of the visiting
-                    {
-                        Stopping = false;
-                    }
+                    // if we are at the root, this is the last step of the visiting
+                    CheckIfFinished(directory);
                     return;
                 }
             }
 
             // operation is done
-            if (directory == _root)
+            CheckIfFinished(directory);
+        }
+
+        private void CheckIfFinished(Directory directory)
+        {
+            if(directory == _root)
             {
                 Stopping = false;
                 Stopped = true;

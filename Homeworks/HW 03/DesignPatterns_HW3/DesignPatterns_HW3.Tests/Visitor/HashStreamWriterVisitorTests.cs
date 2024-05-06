@@ -101,6 +101,27 @@ namespace DesignPatterns_HW3.Tests.Visitor
             Assert.That(output, Has.Length.EqualTo(expectedSubstring.Length));
         }
 
+        [Test]
+        public void VisitDirectory_ShouldVisitAllChildren()
+        {
+            // Arrange
+            var file1 = new File(TEST_DIRECTORY_PATH + "Directory\\f1.txt", 3);
+            var file2 = new File(TEST_DIRECTORY_PATH + "Directory\\f2.txt", 3);
+            var dir = new Directory(TEST_DIRECTORY_PATH + "Directory", 6, new[] { file1, file2 });
+
+            // Act
+            hashStreamWriterVisitor.Visit(dir);
+
+            // Assert
+            var output = Encoding.UTF8.GetString(memoryStream.ToArray());
+            var snapshot = hashStreamWriterVisitor.GetSnapshot();
+            Assert.Multiple(() =>
+            {
+                Assert.That(output, Is.EqualTo($"\r\nChecksum - {MOCK_CHECKSUM}\r\n\r\nChecksum - {MOCK_CHECKSUM}\r\n"));
+                Assert.That(snapshot.Root, Is.EqualTo(dir));
+                Assert.That(snapshot.Visited, Has.Count.EqualTo(3));
+            });
+        }
 
         [Test]
         public void Pause_ShouldStopTheVisitor()
