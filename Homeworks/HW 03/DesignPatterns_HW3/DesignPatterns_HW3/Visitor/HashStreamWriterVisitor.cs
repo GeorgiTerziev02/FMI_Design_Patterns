@@ -94,6 +94,13 @@ namespace DesignPatterns_HW3.Visitor
                     return;
                 }
             }
+
+            // operation is done
+            if (directory == _root)
+            {
+                Stopping = false;
+                Stopped = true;
+            }
         }
 
         // Maybe move this inside visit methods, when we reach the root again, we can reset the visited entities
@@ -102,23 +109,14 @@ namespace DesignPatterns_HW3.Visitor
             _visitedEntities.Clear();
         }
 
+        // Should be called only when Stopped is true and stopping is false
         public ProcessedFilesSnapshot GetSnapshot()
         {
-            if(!Stopped || Stopping)
-            {
-                throw new InvalidOperationException("Can't get snapshot while operating!");
-            }
-
             return new ProcessedFilesSnapshot(_visitedEntities, _root);
         }
 
         public void Restore(ProcessedFilesSnapshot snapshot)
         {
-            if(!Stopped || Stopping)
-            {
-                return;
-            }
-
             _visitedEntities.Clear();
             _visitedEntities.UnionWith(snapshot.Visited);
             _root = snapshot.Root;
@@ -126,6 +124,7 @@ namespace DesignPatterns_HW3.Visitor
             _root.Accept(this);
         }
 
+        // Meant to be called while the visitor is operating
         public void Pause()
         {
             Stopping = true;

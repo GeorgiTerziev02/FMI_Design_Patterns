@@ -3,6 +3,7 @@
 using DesignPatterns_HW3.ChecksuCalculator;
 using DesignPatterns_HW3.Observer;
 using DesignPatterns_HW3.Visitor;
+using DesignPatterns_HW3.Visitor.Memento;
 
 using Moq;
 
@@ -140,6 +141,72 @@ namespace DesignPatterns_HW3.Tests.Visitor
             var expectedSubstring = $"\r\nChecksum - {MOCK_CHECKSUM}\r\n\r\nChecksum - {MOCK_CHECKSUM}\r\n";
             Assert.That(output, Is.EqualTo(expectedSubstring));
             Assert.That(output, Has.Length.EqualTo(expectedSubstring.Length));
+        }
+
+        [Test]
+        public void GetSnapshot_ShouldReturnCorrectSnapshotForFile()
+        {
+            // Arrange
+            var file = new File(TEST_DIRECTORY_PATH + "file.txt", 3);
+
+            // Act
+            hashStreamWriterVisitor.Visit(file);
+
+            // Assert
+            var snapshot = hashStreamWriterVisitor.GetSnapshot();
+            Assert.Multiple(() =>
+            {
+                Assert.That(snapshot.Root, Is.Null);
+                Assert.That(snapshot.Visited, Has.Count.EqualTo(1));
+                Assert.That(snapshot.Visited, Contains.Item(file.RelativePath));
+            });
+        }
+
+        [Test]
+        public void GetSnapshot_ShouldReturnCorrectShanpshotForDirectory()
+        {
+            // Arrange
+            var file1 = new File(TEST_DIRECTORY_PATH + "Directory\\f1.txt", 3);
+            var file2 = new File(TEST_DIRECTORY_PATH + "Directory\\f2.txt", 3);
+            var dir = new Directory(TEST_DIRECTORY_PATH + "Directory", 6, new [] { file1, file2 });
+
+            // Act
+            hashStreamWriterVisitor.Visit(dir);
+
+            // Assert
+            var snapshot = hashStreamWriterVisitor.GetSnapshot();
+            Assert.Multiple(() =>
+            {
+                Assert.That(snapshot.Root, Is.EqualTo(dir));
+                Assert.That(snapshot.Visited, Has.Count.EqualTo(3));
+                Assert.That(snapshot.Visited, Contains.Item(dir.RelativePath));
+                Assert.That(snapshot.Visited, Contains.Item(file1.RelativePath));
+                Assert.That(snapshot.Visited, Contains.Item(file2.RelativePath));
+            });
+        }
+
+        [Test]
+        public void Restore_ShouldRestoreVisitorState()
+        {
+            // Arrange
+            var file1 = new File(TEST_DIRECTORY_PATH + "Directory\\f1.txt", 3);
+            var file2 = new File(TEST_DIRECTORY_PATH + "Directory\\f2.txt", 3);
+            var dir = new Directory(TEST_DIRECTORY_PATH + "Directory", 6, new[] { file1, file2 });
+            var mockSnapshot = new ProcessedFilesSnapshot(new [] { dir.RelativePath, file1.RelativePath, file2.RelativePath }, dir);
+
+            // Act
+            hashStreamWriterVisitor.Restore(mockSnapshot);
+
+            // Assert
+            var newSnapshot = hashStreamWriterVisitor.GetSnapshot();
+            Assert.Multiple(() =>
+            {
+                Assert.That(newSnapshot.Root, Is.EqualTo(mockSnapshot.Root));
+                Assert.That(newSnapshot.Visited, Has.Count.EqualTo(mockSnapshot.Visited.Count));
+                Assert.That(newSnapshot.Visited, Is.EquivalentTo(mockSnapshot.Visited));
+                var output = Encoding.UTF8.GetString(memoryStream.ToArray());
+                Assert.That(output, Is.Empty);
+            });
         }
     }
 }
