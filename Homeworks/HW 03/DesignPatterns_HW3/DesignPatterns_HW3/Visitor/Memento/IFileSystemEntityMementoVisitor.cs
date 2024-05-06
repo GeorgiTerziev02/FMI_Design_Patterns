@@ -3,9 +3,7 @@
 
     public interface IFileSystemEntityMementoVisitor : IFileSystemEntityVisitor
     {
-        bool Stopping { get; }
-
-        bool Stopped { get; }
+        public bool Stopped { get; }
 
         void Pause();
 

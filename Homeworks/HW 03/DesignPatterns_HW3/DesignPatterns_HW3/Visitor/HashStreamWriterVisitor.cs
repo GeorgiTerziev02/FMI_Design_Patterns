@@ -30,7 +30,7 @@ namespace DesignPatterns_HW3.Visitor
         /// On request for stop => set to true
         /// When is becomes false => it is ready to take a snapshot
         /// </summary>
-        public bool Stopping { get; private set; } = false;
+        protected bool Stopping { get; private set; } = false;
 
         public bool Stopped { get; private set; } = false;
 
@@ -90,7 +90,6 @@ namespace DesignPatterns_HW3.Visitor
                     if(directory == _root) // if we are at the root, this is the last step of the visiting
                     {
                         Stopping = false;
-                        Stopped = true;
                     }
                     return;
                 }
@@ -105,11 +104,21 @@ namespace DesignPatterns_HW3.Visitor
 
         public ProcessedFilesSnapshot GetSnapshot()
         {
+            if(!Stopped || Stopping)
+            {
+                throw new InvalidOperationException("Can't get snapshot while operating!");
+            }
+
             return new ProcessedFilesSnapshot(_visitedEntities, _root);
         }
 
         public void Restore(ProcessedFilesSnapshot snapshot)
         {
+            if(!Stopped || Stopping)
+            {
+                return;
+            }
+
             _visitedEntities.Clear();
             _visitedEntities.UnionWith(snapshot.Visited);
             _root = snapshot.Root;
@@ -120,6 +129,7 @@ namespace DesignPatterns_HW3.Visitor
         public void Pause()
         {
             Stopping = true;
+            Stopped = true;
         }
     }
 }
