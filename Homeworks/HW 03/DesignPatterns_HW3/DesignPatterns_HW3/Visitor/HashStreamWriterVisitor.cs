@@ -32,6 +32,8 @@ namespace DesignPatterns_HW3.Visitor
         /// </summary>
         public bool Stopping { get; private set; } = false;
 
+        public bool Stopped { get; private set; } = false;
+
         public override void Attach(IObserver observer)
         {
             _checksumCalculator.Attach(observer);
@@ -88,6 +90,7 @@ namespace DesignPatterns_HW3.Visitor
                     if(directory == _root) // if we are at the root, this is the last step of the visiting
                     {
                         Stopping = false;
+                        Stopped = true;
                     }
                     return;
                 }
@@ -110,6 +113,7 @@ namespace DesignPatterns_HW3.Visitor
             _visitedEntities.Clear();
             _visitedEntities.UnionWith(snapshot.Visited);
             _root = snapshot.Root;
+            Stopped = false;
             _root.Accept(this);
         }
 

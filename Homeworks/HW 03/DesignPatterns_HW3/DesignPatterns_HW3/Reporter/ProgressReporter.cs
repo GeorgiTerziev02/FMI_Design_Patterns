@@ -36,7 +36,7 @@ namespace DesignPatterns_HW3.Reporter
 
         public ProgressSnapshot GetSnapshot()
         {
-            return new ProgressSnapshot(_expectedBytesToRead, _readBytes, ElapsedMilliseconds);
+            return new ProgressSnapshot(_readBytes, _expectedBytesToRead, ElapsedMilliseconds);
         }
 
         public void Pause()

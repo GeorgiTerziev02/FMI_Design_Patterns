@@ -5,6 +5,8 @@
     {
         bool Stopping { get; }
 
+        bool Stopped { get; }
+
         void Pause();
 
         ProcessedFilesSnapshot GetSnapshot();
