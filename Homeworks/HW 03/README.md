@@ -10,6 +10,8 @@ Task for this homework - File system checksum - HW3_Task.pdf
 
 ![alt text](image.png)
 
+- note: I don't think the current code I have written is good enough for eventual syncing between two threads
+
 ## Known issues
 
 - Currently works only for windows shortcuts
