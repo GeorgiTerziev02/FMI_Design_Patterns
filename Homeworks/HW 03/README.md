@@ -16,4 +16,4 @@ Task for this homework - File system checksum - HW3_Task.pdf
 
 - Currently works only for windows shortcuts
 - When traversing and following shortcuts the result percentage are inconsistent because of the size of the referred files by the shortcuts
-- Missing the functionality with the two threads communicating
+- Missing the functionality with the two threads communicating, but the logic for stopping is prepared
