@@ -59,7 +59,7 @@ namespace DesignPatterns_HW3.FileSystemProvider
 
         // TODO: one sunny day fix
         // wasted too much time on findind the correct way to follow shortcut/symlink
-        // copy pasted function which is not perfect, but would do the work for windows
+        // copy pasted this function from stackoverflow which is not perfect, but would do the work for windows
         private static string GetLnkTargetPath(string filepath)
         {
             using (var br = new BinaryReader(SystemFile.OpenRead(filepath)))
