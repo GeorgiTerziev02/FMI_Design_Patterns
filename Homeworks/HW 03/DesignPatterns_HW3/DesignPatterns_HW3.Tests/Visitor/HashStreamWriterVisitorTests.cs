@@ -120,6 +120,7 @@ namespace DesignPatterns_HW3.Tests.Visitor
                 Assert.That(output, Is.EqualTo($"\r\nChecksum - {MOCK_CHECKSUM}\r\n\r\nChecksum - {MOCK_CHECKSUM}\r\n"));
                 Assert.That(snapshot.Root, Is.EqualTo(dir));
                 Assert.That(snapshot.Visited, Has.Count.EqualTo(3));
+                Assert.That(hashStreamWriterVisitor.Stopped, Is.True);
             });
         }
 
